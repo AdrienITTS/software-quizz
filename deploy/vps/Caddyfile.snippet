@@ -1,4 +1,9 @@
 # Add to ~/stacks/proxy/Caddyfile on the VPS, then validate and restart Caddy.
-quiz.adrienitts.com {
+quizz.adrienitts.com {
 	reverse_proxy software-quizz:80
+}
+
+# The site first lived here: keep the old links working.
+quiz.adrienitts.com {
+	redir https://quizz.adrienitts.com{uri} permanent
 }

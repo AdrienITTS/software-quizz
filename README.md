@@ -55,7 +55,7 @@ npm run preview
 `.github/workflows/deploy.yml` runs on every push to `main`, every Monday at 04:00 UTC (to pick up
 new sheets) and on demand. It exports the concepts, runs the checks and the end-to-end tests, builds
 a Docker image (Caddy serving the static site), pushes it to `ghcr.io/adrienitts/software-quizz` and
-deploys it to the VPS over SSH, behind the front Caddy, at https://quiz.adrienitts.com.
+deploys it to the VPS over SSH, behind the front Caddy, at https://quizz.adrienitts.com.
 
 Repository secrets: `NOTION_TOKEN`, `NOTION_CONCEPTS_DATA_SOURCE_ID`, `VPS_HOST`, `VPS_USER`,
 `VPS_SSH_KEY` and `VPS_KNOWN_HOSTS`. The files to install on the VPS are in `deploy/vps/`.
