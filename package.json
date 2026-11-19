@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "npx serve .output/public -l 4173",
+    "preview": "npx --yes serve .output/public -l 4173",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -18,7 +18,8 @@
     "test": "vitest run",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "sync": "node --env-file-if-exists=.env scripts/sync-notion.ts",
-    "questions": "node scripts/generate-questions.ts"
+    "questions": "node scripts/generate-questions.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "nuxt": "^4.6.4"
@@ -26,10 +27,13 @@
   "devDependencies": {
     "@notionhq/client": "^5.31.1",
     "@nuxt/eslint": "^1.17.0",
+    "@playwright/test": "^1.65.1",
+    "@tailwindcss/vite": "^4.3.5",
     "@types/node": "^24.19.2",
     "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.10.1",
+    "tailwindcss": "^4.3.5",
     "typescript": "~6.0.0",
     "vitest": "^5.1.1",
     "vue-tsc": "^3.3.14",

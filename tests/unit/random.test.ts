@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { hashText, seededRandom, shuffle } from '../../scripts/questions/random.ts'
+import { hashText, seededRandom, shuffle } from '../../shared/random.ts'
 
 describe('seededRandom', () => {
   it('gives the same sequence for the same seed', () => {

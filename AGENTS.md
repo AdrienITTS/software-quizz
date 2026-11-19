@@ -31,6 +31,12 @@ The plan and decisions live in Notion, on the page "Perso › Projets › softwa
 - `scripts/questions/`: the pure question generator. Randomness is seeded from the concept and
   question kind, so the same concepts always give the same questions. A question id depends only
   on its concept and right answer, so browser progress survives new concepts.
+- `app/`: the quiz site. `app/data/quiz-data.ts` imports `generated/*.json` at build time;
+  `app/utils/quiz.ts` (pure, unit-tested) picks the questions of a quiz and turns every kind into
+  one shape (prompt, quote, options). The draw runs in the browser, on mount, so the pre-rendered
+  pages are the same for everyone.
+- App code reaches `shared/` through the `#shared` alias: Nuxt does not bundle relative imports
+  that leave `app/`. Scripts and tests use relative paths with `.ts` extensions.
 - `tests/unit/`: Vitest tests, with fake Notion responses.
 - Scripts run on Node's type stripping (no build step), so they use `.ts` import extensions and
   erasable syntax only (no enums, no parameter properties).
@@ -44,9 +50,15 @@ The plan and decisions live in Notion, on the page "Perso › Projets › softwa
 - `npm run sync`: exports the Concepts sheets to `generated/concepts.json`. Needs `NOTION_TOKEN` and
   `NOTION_CONCEPTS_DATA_SOURCE_ID`, from `.env` locally (see `.env.example`) or CI secrets. Keep the
   data source id secret too: GitHub masks secret values in the logs, including in Notion errors.
+- `npm run test:e2e`: Playwright on the static build, desktop and mobile.
 - `npm run questions`: generates `generated/questions.json` from `generated/concepts.json`.
 
-Before saying a change is done, run `npm run check` and `npm run generate`.
+The site, the type-check and the e2e tests need `generated/*.json`: run `npm run sync` and
+`npm run questions` first. Before saying a change is done, run `npm run check`, `npm run generate`
+and `npm run test:e2e`. Playwright reuses a server already running on port 4173, so stop it or
+regenerate first, or the tests run against an old build.
+
+UI text is in French: use a no-break space (`\u00a0`) before `?`, `!`, `:` and inside « ».
 
 ## Rules
 

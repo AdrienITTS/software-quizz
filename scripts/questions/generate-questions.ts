@@ -1,7 +1,7 @@
 import type { Concept } from '../../shared/concept.type.ts'
 import type { Question } from '../../shared/question.type.ts'
 import { maskConceptName } from './mask-concept-name.ts'
-import { hashText, seededRandom, shuffle, type Random } from './random.ts'
+import { hashText, seededRandom, shuffle, type Random } from '../../shared/random.ts'
 
 const DISTRACTOR_COUNT = 3
 

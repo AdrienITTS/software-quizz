@@ -28,3 +28,7 @@ coverage
 
 # Notion export and generated questions (build artifacts)
 generated
+
+# Playwright
+test-results
+playwright-report

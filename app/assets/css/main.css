@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+/* Same fonts and palette as the portfolio, so the quiz reads as part of the same site. */
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/inter-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/inter-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Grotesk';
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/grotesk-700.woff2') format('woff2');
+}
+
+/* Components only use these tokens. The dark theme follows the system setting. */
+:root {
+  color-scheme: light dark;
+  --c-bg: #f7f9fc;
+  --c-surface: #ffffff;
+  --c-navy: #16233f;
+  --c-accent: #2f5aa8;
+  --c-ink: #232a36;
+  --c-muted: #5d6677;
+  --c-line: #d8deea;
+  --c-tint: #eef2f9;
+  --c-success: #1f7a4d;
+  --c-success-tint: #e5f4ec;
+  --c-error: #b3372f;
+  --c-error-tint: #fbeae8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #0d1424;
+    --c-surface: #131c31;
+    --c-navy: #e6ecf8;
+    --c-accent: #8fb1ee;
+    --c-ink: #d3dae7;
+    --c-muted: #97a2b8;
+    --c-line: #26324d;
+    --c-tint: #1a2540;
+    --c-success: #6fd3a0;
+    --c-success-tint: #12302a;
+    --c-error: #f19a92;
+    --c-error-tint: #3a1d22;
+  }
+}
+
+@theme inline {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Grotesk', 'Inter', ui-sans-serif, sans-serif;
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-navy: var(--c-navy);
+  --color-accent: var(--c-accent);
+  --color-ink: var(--c-ink);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
+  --color-tint: var(--c-tint);
+  --color-success: var(--c-success);
+  --color-success-tint: var(--c-success-tint);
+  --color-error: var(--c-error);
+  --color-error-tint: var(--c-error-tint);
+}
+
+@layer base {
+  html {
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent text-white;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}

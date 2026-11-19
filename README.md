@@ -20,7 +20,15 @@ The site runs on http://localhost:3000.
 npm run check
 ```
 
-This runs the Prettier check, ESLint, the type-check and the Vitest unit tests.
+This runs the Prettier check, ESLint, the type-check and the Vitest unit tests. The end-to-end
+tests run on the static build, on desktop and mobile:
+
+```bash
+npx playwright install chromium   # once
+npm run test:e2e
+```
+
+Both need the data in `generated/` (see below).
 
 ## Sync the concepts
 
