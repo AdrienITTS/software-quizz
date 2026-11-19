@@ -29,7 +29,8 @@ cp .env.example .env   # then fill in the two values
 npm run sync
 ```
 
-This writes `generated/concepts.json`. The token comes from a read-only Notion integration that
+This writes `generated/concepts.json`. Then `npm run questions` builds the quiz in
+`generated/questions.json`. The token comes from a read-only Notion integration that
 can only see the Concepts database.
 
 ## Build

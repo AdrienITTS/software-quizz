@@ -17,7 +17,8 @@
     "typecheck": "nuxt typecheck",
     "test": "vitest run",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
-    "sync": "node --env-file-if-exists=.env scripts/sync-notion.ts"
+    "sync": "node --env-file-if-exists=.env scripts/sync-notion.ts",
+    "questions": "node scripts/generate-questions.ts"
   },
   "dependencies": {
     "nuxt": "^4.6.4"

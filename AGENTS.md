@@ -19,12 +19,18 @@ The plan and decisions live in Notion, on the page "Perso › Projets › softwa
 
 ## Layout
 
-- `shared/`: types used by both the build scripts and the site (`concept.type.ts`).
+- `shared/`: types used by both the build scripts and the site (`concept.type.ts`,
+  `question.type.ts`).
 - `scripts/sync-notion.ts`: the only code that talks to Notion. It reads the "✅ Rédigé" sheets,
   parses them and writes `generated/concepts.json` (git-ignored).
 - `scripts/notion/`: pure functions. The zod schemas in `parse-concepts.ts` are the allowlist of
   published fields: a field they don't declare never reaches the output. `find-notion-traces.ts`
   fails the sync if an id, a Notion URL or a token slips through.
+- `scripts/generate-questions.ts`: reads `generated/concepts.json`, writes
+  `generated/questions.json`.
+- `scripts/questions/`: the pure question generator. Randomness is seeded from the concept and
+  question kind, so the same concepts always give the same questions. A question id depends only
+  on its concept and right answer, so browser progress survives new concepts.
 - `tests/unit/`: Vitest tests, with fake Notion responses.
 - Scripts run on Node's type stripping (no build step), so they use `.ts` import extensions and
   erasable syntax only (no enums, no parameter properties).
@@ -38,6 +44,7 @@ The plan and decisions live in Notion, on the page "Perso › Projets › softwa
 - `npm run sync`: exports the Concepts sheets to `generated/concepts.json`. Needs `NOTION_TOKEN` and
   `NOTION_CONCEPTS_DATA_SOURCE_ID`, from `.env` locally (see `.env.example`) or CI secrets. Keep the
   data source id secret too: GitHub masks secret values in the logs, including in Notion errors.
+- `npm run questions`: generates `generated/questions.json` from `generated/concepts.json`.
 
 Before saying a change is done, run `npm run check` and `npm run generate`.
 
