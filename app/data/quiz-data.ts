@@ -7,3 +7,4 @@ import questionsJson from '~~/generated/questions.json'
 // it would ship zod to every visitor for files we produce ourselves.
 export const concepts = conceptsJson as Concept[]
 export const questions = questionsJson as Question[]
+export const questionIds: ReadonlySet<string> = new Set(questions.map((question) => question.id))

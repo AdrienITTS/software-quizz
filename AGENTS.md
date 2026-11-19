@@ -35,6 +35,11 @@ The plan and decisions live in Notion, on the page "Perso › Projets › softwa
   `app/utils/quiz.ts` (pure, unit-tested) picks the questions of a quiz and turns every kind into
   one shape (prompt, quote, options). The draw runs in the browser, on mount, so the pre-rendered
   pages are the same for everyone.
+- Progress: `app/utils/progress.ts` (pure, unit-tested) keeps one FSRS card per question id
+  (`ts-fsrs`, short-term steps off, so intervals count in days; right = Good, wrong = Again) and
+  the last sessions. `app/composables/useProgress.ts` is the only code that touches
+  `localStorage` (key `software-quizz:progress`, `version: 1`); bump the version and handle the
+  old shape if the format changes. `/quiz?mode=revision` asks the due questions.
 - App code reaches `shared/` through the `#shared` alias: Nuxt does not bundle relative imports
   that leave `app/`. Scripts and tests use relative paths with `.ts` extensions.
 - `Dockerfile`, `docker/Caddyfile`: the image, Caddy serving `.output/public`. The CI writes

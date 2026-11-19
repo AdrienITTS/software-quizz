@@ -46,6 +46,24 @@ export function buildQuiz(
     .map(({ question, concept }) => toQuizItem(question, concept))
 }
 
+/** A review quiz: the due questions, in the order given (most overdue first). */
+export function buildReviewQuiz(
+  questions: Question[],
+  concepts: Concept[],
+  dueIds: string[],
+): QuizItem[] {
+  const questionsById = new Map(questions.map((question) => [question.id, question]))
+  const conceptsBySlug = new Map(concepts.map((concept) => [concept.slug, concept]))
+
+  return dueIds
+    .flatMap((id) => {
+      const question = questionsById.get(id)
+      const concept = question && conceptsBySlug.get(question.conceptSlug)
+      return question && concept ? [toQuizItem(question, concept)] : []
+    })
+    .slice(0, QUIZ_LENGTH)
+}
+
 export function quizTags(concepts: Concept[]): QuizTag[] {
   const counts = new Map<string, number>()
   for (const tag of concepts.flatMap((concept) => concept.tags)) {

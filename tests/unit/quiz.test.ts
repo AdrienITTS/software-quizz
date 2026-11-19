@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { Concept } from '../../shared/concept.type.ts'
 import type { Question } from '../../shared/question.type.ts'
 import { seededRandom } from '../../shared/random.ts'
-import { buildQuiz, QUIZ_LENGTH, quizTags } from '../../app/utils/quiz.ts'
+import { buildQuiz, buildReviewQuiz, QUIZ_LENGTH, quizTags } from '../../app/utils/quiz.ts'
 
 function concept(slug: string, tags: string[] = ['Craftsmanship']): Concept {
   return {
@@ -129,6 +129,25 @@ describe('quiz items', () => {
     const [item] = quizOf(relatedQuestion('solid'))
 
     expect(item?.concept).toEqual(solid)
+  })
+})
+
+describe('buildReviewQuiz', () => {
+  const concepts = Array.from({ length: 12 }, (_, index) => concept(`c${index}`))
+  const questions = concepts.map((item) => relatedQuestion(item.slug))
+
+  it('asks the due questions in the given order, up to a full quiz', () => {
+    const dueIds = [...questions].reverse().map((question) => question.id)
+
+    const quiz = buildReviewQuiz(questions, concepts, dueIds)
+
+    expect(quiz.map((item) => item.id)).toEqual(dueIds.slice(0, QUIZ_LENGTH))
+  })
+
+  it('skips the ids of questions that no longer exist', () => {
+    const quiz = buildReviewQuiz(questions, concepts, ['gone', 'related-concept:c3:0'])
+
+    expect(quiz.map((item) => item.id)).toEqual(['related-concept:c3:0'])
   })
 })
 

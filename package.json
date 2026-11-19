@@ -22,7 +22,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "nuxt": "^4.6.4"
+    "nuxt": "^4.6.4",
+    "ts-fsrs": "^6.0.0"
   },
   "devDependencies": {
     "@notionhq/client": "^5.31.1",

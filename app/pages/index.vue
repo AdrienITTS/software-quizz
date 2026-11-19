@@ -24,6 +24,8 @@ const tags = quizTags(concepts)
       </NuxtLink>
     </section>
 
+    <ProgressPanel />
+
     <section class="space-y-4" aria-labelledby="themes">
       <h2 id="themes" class="font-display text-xl font-bold text-navy">Par thème</h2>
       <ul class="grid gap-3 sm:grid-cols-2">
