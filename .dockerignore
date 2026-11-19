@@ -1,0 +1,17 @@
+# generated/ must stay in the build context: the site is built from it.
+node_modules
+.output
+.nuxt
+.data
+.git
+.github
+.idea
+.claude
+.env
+.env.*
+*.log
+.DS_Store
+coverage
+playwright-report
+test-results
+deploy

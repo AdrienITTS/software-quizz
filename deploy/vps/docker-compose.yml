@@ -1,0 +1,12 @@
+# Copy to ~/stacks/software-quizz/docker-compose.yml on the VPS.
+services:
+  software-quizz:
+    image: ghcr.io/adrienitts/software-quizz:${IMAGE_TAG:-latest}
+    container_name: software-quizz
+    restart: unless-stopped
+    networks:
+      - web
+
+networks:
+  web:
+    external: true

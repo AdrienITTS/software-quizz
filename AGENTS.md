@@ -37,7 +37,12 @@ The plan and decisions live in Notion, on the page "Perso › Projets › softwa
   pages are the same for everyone.
 - App code reaches `shared/` through the `#shared` alias: Nuxt does not bundle relative imports
   that leave `app/`. Scripts and tests use relative paths with `.ts` extensions.
-- `tests/unit/`: Vitest tests, with fake Notion responses.
+- `Dockerfile`, `docker/Caddyfile`: the image, Caddy serving `.output/public`. The CI writes
+  `generated/` before the build; the Notion secrets only exist in the `data` job of
+  `.github/workflows/deploy.yml`, never in the image.
+- `deploy/vps/`: the files to copy on the VPS (compose, forced-command script, Caddy block).
+- `tests/unit/`: Vitest tests, with fake Notion responses. Never paste a real Notion id or URL in
+  a fixture: the repository is public.
 - Scripts run on Node's type stripping (no build step), so they use `.ts` import extensions and
   erasable syntax only (no enums, no parameter properties).
 
