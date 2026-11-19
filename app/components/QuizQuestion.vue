@@ -71,6 +71,7 @@ function optionClass(index: number): string {
             La bonne réponse : {{ item.options[item.answerIndex] }}
           </span>
         </p>
+        <p>{{ item.explanation }}</p>
         <p class="text-sm">
           <span class="font-semibold text-navy">{{ item.concept.name }}</span>
           <span class="text-muted">&nbsp;: {{ item.concept.summary }}</span>

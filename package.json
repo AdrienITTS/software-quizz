@@ -18,8 +18,9 @@
     "test": "vitest run",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "sync": "node --env-file-if-exists=.env scripts/sync-notion.ts",
-    "questions": "node scripts/generate-questions.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "questions:plan": "node scripts/plan-questions.ts",
+    "questions:apply": "node scripts/apply-questions.ts"
   },
   "dependencies": {
     "nuxt": "^4.6.4",

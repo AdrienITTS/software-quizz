@@ -1,0 +1,994 @@
+[
+  {
+    "slug": "dip-dependency-inversion-principle",
+    "name": "DIP (Dependency Inversion Principle)",
+    "summary": "Le code métier dépend d'abstractions qu'il définit lui-même, et les détails techniques implémentent ces abstractions.",
+    "tags": [
+      "Craftsmanship",
+      "Architecture"
+    ],
+    "definitions": [],
+    "relatedSlugs": [
+      "solid",
+      "architecture-hexagonale-onion-et-clean",
+      "architecture-n-tier-en-couches"
+    ]
+  },
+  {
+    "slug": "stateless-sans-etat",
+    "name": "Stateless (sans état)",
+    "summary": "Un service qui ne garde rien en mémoire entre deux requêtes : n'importe quelle instance peut répondre, donc il passe facilement à l'échelle.",
+    "tags": [
+      "Architecture",
+      "Back"
+    ],
+    "definitions": [
+      {
+        "term": "Sortir l'état du processus",
+        "definition": "il part dans un stockage partagé (Redis, base) ou dans la requête (JWT, cookie signé)."
+      },
+      {
+        "term": "Répartir librement",
+        "definition": "le load balancer envoie chaque requête à n'importe quelle instance."
+      },
+      {
+        "term": "Monter en charge horizontalement",
+        "definition": "on ajoute des instances selon la charge, l'autoscaling devient simple."
+      },
+      {
+        "term": "Accepter que l'état existe toujours",
+        "definition": "la difficulté se déplace vers la base ou le cache."
+      }
+    ],
+    "relatedSlugs": [
+      "twelve-factor-app",
+      "architecture-n-tier-en-couches"
+    ]
+  },
+  {
+    "slug": "shuffle-sharding",
+    "name": "Shuffle sharding",
+    "summary": "Donner à chaque client une combinaison aléatoire de quelques serveurs, pour qu'un client toxique n'en affecte qu'une infime partie.",
+    "tags": [
+      "Architecture",
+      "DevOps"
+    ],
+    "definitions": [
+      {
+        "term": "Parc",
+        "definition": "on garde les 8 serveurs, sans les regrouper."
+      },
+      {
+        "term": "Tirage",
+        "definition": "chaque client reçoit une combinaison de 2 serveurs. Il en existe 28."
+      },
+      {
+        "term": "Isolation",
+        "definition": "si les 2 serveurs d'un client tombent, seuls les clients qui ont exactement la même paire perdent tout, soit environ 1 sur 28. Ceux qui partagent un seul serveur continuent sur l'autre."
+      },
+      {
+        "term": "Côté client",
+        "definition": "il faut savoir réessayer sur un autre serveur de sa combinaison."
+      }
+    ],
+    "relatedSlugs": [
+      "bulkhead-cloisonnement",
+      "voisin-bruyant-noisy-neighbor"
+    ]
+  },
+  {
+    "slug": "monolithe-modulaire-modular-monolith",
+    "name": "Monolithe modulaire (Modular Monolith)",
+    "summary": "Une seule application déployée d'un bloc, découpée en modules métier aux frontières strictes et vérifiées.",
+    "tags": [
+      "Architecture"
+    ],
+    "definitions": [
+      {
+        "term": "Modules par domaine",
+        "definition": "un module par Bounded Context (Commandes, Catalogue, Facturation), pas par couche technique."
+      },
+      {
+        "term": "API publique",
+        "definition": "un module n'appelle que l'interface publique d'un autre, jamais ses classes internes."
+      },
+      {
+        "term": "Données privées",
+        "definition": "un schéma ou des tables par module, sans jointure entre modules."
+      },
+      {
+        "term": "Communication",
+        "definition": "appels en mémoire ou événements internes."
+      },
+      {
+        "term": "Règles vérifiées",
+        "definition": "des tests d'architecture (ArchUnit, Spring Modulith) ou les modules du langage font échouer le build en cas de violation."
+      }
+    ],
+    "relatedSlugs": [
+      "microservices",
+      "ddd-domain-driven-design",
+      "loi-de-conway-conway-s-law",
+      "strangler-fig-figuier-etrangleur",
+      "architecture-hexagonale-onion-et-clean"
+    ]
+  },
+  {
+    "slug": "dlq-dead-letter-queue",
+    "name": "DLQ (Dead Letter Queue)",
+    "summary": "Une file à part où l'on met de côté les messages impossibles à traiter, pour ne pas bloquer les autres et pouvoir les analyser.",
+    "tags": [
+      "Back",
+      "Architecture"
+    ],
+    "definitions": [
+      {
+        "term": "Tentatives",
+        "definition": "le consommateur réessaie quelques fois, idéalement avec un backoff."
+      },
+      {
+        "term": "Seuil",
+        "definition": "au-delà d'un nombre de livraisons (maxReceiveCount sur SQS, en-tête x-death sur RabbitMQ), le broker déplace le message vers la DLQ."
+      },
+      {
+        "term": "Alerte",
+        "definition": "une alarme se déclenche dès que la DLQ contient un message."
+      },
+      {
+        "term": "Traitement",
+        "definition": "on inspecte, on corrige le bug ou la donnée, puis on renvoie le message vers la file d'origine (redrive)."
+      }
+    ],
+    "relatedSlugs": [
+      "file-de-messages-message-queue",
+      "backoff-exponentiel-et-jitter",
+      "etl-elt-extract-transform-load-extract-load-transform"
+    ]
+  },
+  {
+    "slug": "thundering-herd-effet-de-troupeau",
+    "name": "Thundering herd (effet de troupeau)",
+    "summary": "Beaucoup de clients se réveillent au même instant et se ruent sur la même ressource, qui cède sous le pic.",
+    "tags": [
+      "Back",
+      "Architecture"
+    ],
+    "definitions": [
+      {
+        "term": "Cache stampede",
+        "definition": "une clé très demandée expire, et des milliers de requêtes ratent le cache et interrogent la base en même temps."
+      },
+      {
+        "term": "Reconnexion massive",
+        "definition": "après une coupure, tous les clients se reconnectent dans la même seconde."
+      },
+      {
+        "term": "Tâches planifiées",
+        "definition": "tous les crons à minuit pile, toutes les applis mobiles qui synchronisent à l'heure ronde."
+      },
+      {
+        "term": "Retries synchronisés",
+        "definition": "des clients qui réessaient au même rythme forment des vagues régulières."
+      }
+    ],
+    "relatedSlugs": [
+      "backoff-exponentiel-et-jitter",
+      "circuit-breaker-disjoncteur",
+      "backpressure-contre-pression"
+    ]
+  },
+  {
+    "slug": "event-sourcing",
+    "name": "Event Sourcing",
+    "summary": "Stocker la suite des événements qui ont modifié un objet au lieu de son état courant, et retrouver l'état en les rejouant.",
+    "tags": [
+      "Architecture",
+      "DB"
+    ],
+    "definitions": [
+      {
+        "term": "Chargement",
+        "definition": "on reconstruit l'agrégat en rejouant ses événements."
+      },
+      {
+        "term": "Décision",
+        "definition": "l'agrégat vérifie les règles et produit de nouveaux événements, nommés au passé (MoneyDeposited)."
+      },
+      {
+        "term": "Ajout",
+        "definition": "les événements sont ajoutés à l'event store, sans jamais modifier les anciens, avec un numéro de version pour détecter les écritures concurrentes."
+      },
+      {
+        "term": "Projections",
+        "definition": "des consommateurs construisent des vues de lecture à partir du flux."
+      },
+      {
+        "term": "Snapshots",
+        "definition": "pour un long historique, on sauvegarde un état intermédiaire pour ne pas tout rejouer."
+      }
+    ],
+    "relatedSlugs": [
+      "cqrs-command-query-responsibility-segregation",
+      "file-de-messages-message-queue"
+    ]
+  },
+  {
+    "slug": "adr-architecture-decision-record",
+    "name": "ADR (Architecture Decision Record)",
+    "summary": "Une courte note versionnée qui garde la trace d'une décision d'architecture : le contexte, le choix et ses conséquences.",
+    "tags": [
+      "Architecture",
+      "Craftsmanship"
+    ],
+    "definitions": [
+      {
+        "term": "Titre",
+        "definition": "numéroté et explicite (« 0007 Utiliser PostgreSQL pour les commandes »)."
+      },
+      {
+        "term": "Statut",
+        "definition": "proposé, accepté, déprécié, ou remplacé par un autre ADR."
+      },
+      {
+        "term": "Contexte",
+        "definition": "les contraintes et ce qu'on savait à ce moment-là."
+      },
+      {
+        "term": "Décision",
+        "definition": "ce qu'on fait, à la voix active."
+      },
+      {
+        "term": "Conséquences",
+        "definition": "ce qui devient plus facile et ce qui devient plus difficile."
+      }
+    ],
+    "relatedSlugs": [
+      "strangler-fig-figuier-etrangleur",
+      "loi-de-conway-conway-s-law"
+    ]
+  },
+  {
+    "slug": "bulkhead-cloisonnement",
+    "name": "Bulkhead (cloisonnement)",
+    "summary": "Réserver des ressources séparées (threads, connexions) à chaque usage pour qu'une partie saturée n'entraîne pas tout le système.",
+    "tags": [
+      "Architecture",
+      "Back"
+    ],
+    "definitions": [
+      {
+        "term": "Par dépendance",
+        "definition": "un pool de threads ou un sémaphore par service appelé, avec une taille maximale."
+      },
+      {
+        "term": "Par type de charge",
+        "definition": "séparer les requêtes interactives des batchs, ou les clients premium des autres."
+      },
+      {
+        "term": "Par infrastructure",
+        "definition": "des instances, des files ou des clusters séparés par usage ou par client."
+      },
+      {
+        "term": "Compartiment plein",
+        "definition": "on rejette vite ou on renvoie un repli, sans mettre en attente."
+      }
+    ],
+    "relatedSlugs": [
+      "circuit-breaker-disjoncteur",
+      "backpressure-contre-pression",
+      "shuffle-sharding",
+      "voisin-bruyant-noisy-neighbor"
+    ]
+  },
+  {
+    "slug": "voisin-bruyant-noisy-neighbor",
+    "name": "Voisin bruyant (Noisy Neighbor)",
+    "summary": "Un locataire qui consomme trop de ressources partagées dégrade le service de tous les autres.",
+    "tags": [
+      "Architecture",
+      "DevOps"
+    ],
+    "definitions": [
+      {
+        "term": "Symptôme",
+        "definition": "la latence monte pour tout le monde alors que la charge globale paraît normale, à cause d'un seul client."
+      },
+      {
+        "term": "Mesurer",
+        "definition": "sans métriques par client (tenant), impossible de trouver le coupable."
+      },
+      {
+        "term": "Limiter",
+        "definition": "quotas et limitation de débit par client, priorités, files séparées."
+      },
+      {
+        "term": "Isoler",
+        "definition": "cloisonner les ressources, donner une infrastructure dédiée aux gros clients, ou répartir avec du shuffle sharding."
+      }
+    ],
+    "relatedSlugs": [
+      "shuffle-sharding",
+      "bulkhead-cloisonnement"
+    ]
+  },
+  {
+    "slug": "strangler-fig-figuier-etrangleur",
+    "name": "Strangler Fig (figuier étrangleur)",
+    "summary": "Remplacer un vieux système morceau par morceau en redirigeant progressivement le trafic, sans réécriture complète d'un coup.",
+    "tags": [
+      "Architecture"
+    ],
+    "definitions": [
+      {
+        "term": "Intercepter",
+        "definition": "placer une façade (reverse proxy, API gateway, routage dans l'application) devant l'ancien système."
+      },
+      {
+        "term": "Extraire",
+        "definition": "réécrire une fonctionnalité bien délimitée dans le nouveau système."
+      },
+      {
+        "term": "Rediriger",
+        "definition": "envoyer le trafic de cette fonctionnalité vers le nouveau système, d'abord pour une partie des utilisateurs si besoin."
+      },
+      {
+        "term": "Retirer",
+        "definition": "supprimer le code devenu inutile dans l'ancien, puis recommencer."
+      }
+    ],
+    "relatedSlugs": [
+      "microservices",
+      "monolithe-modulaire-modular-monolith",
+      "adr-architecture-decision-record"
+    ]
+  },
+  {
+    "slug": "backpressure-contre-pression",
+    "name": "Backpressure (contre-pression)",
+    "summary": "Le consommateur signale qu'il est saturé et le producteur ralentit, au lieu d'empiler du travail jusqu'à la panne.",
+    "tags": [
+      "Back",
+      "Architecture"
+    ],
+    "definitions": [
+      {
+        "term": "Ralentir le producteur",
+        "definition": "le consommateur ne demande que ce qu'il peut traiter (modèle pull, request(n) dans Reactive Streams, streams Node.js)."
+      },
+      {
+        "term": "Mettre en tampon",
+        "definition": "une file absorbe l'écart, à condition qu'il soit temporaire et que la file soit bornée."
+      },
+      {
+        "term": "Rejeter",
+        "definition": "refuser l'excédent (HTTP 429 ou 503, load shedding) ou échantillonner."
+      }
+    ],
+    "relatedSlugs": [
+      "file-de-messages-message-queue",
+      "etl-elt-extract-transform-load-extract-load-transform",
+      "bulkhead-cloisonnement",
+      "circuit-breaker-disjoncteur",
+      "thundering-herd-effet-de-troupeau"
+    ]
+  },
+  {
+    "slug": "cqrs-command-query-responsibility-segregation",
+    "name": "CQRS (Command Query Responsibility Segregation)",
+    "summary": "Séparer le modèle qui modifie les données (commandes) de celui qui les lit (requêtes) pour optimiser chacun de son côté.",
+    "tags": [
+      "Architecture",
+      "Back"
+    ],
+    "definitions": [
+      {
+        "term": "Commandes",
+        "definition": "une intention (PlaceOrder) qui valide les règles et modifie l'état, sans renvoyer de données métier."
+      },
+      {
+        "term": "Requêtes",
+        "definition": "elles lisent sans rien modifier, souvent en SQL direct sur des vues dénormalisées."
+      },
+      {
+        "term": "Synchronisation",
+        "definition": "dans la forme simple, une seule base et deux modèles de code. Dans la forme avancée, la lecture a sa propre base, mise à jour par des événements, avec une cohérence à terme."
+      }
+    ],
+    "relatedSlugs": [
+      "event-sourcing",
+      "etl-elt-extract-transform-load-extract-load-transform",
+      "architecture-hexagonale-onion-et-clean"
+    ]
+  },
+  {
+    "slug": "twelve-factor-app",
+    "name": "Twelve-Factor App",
+    "summary": "Douze règles pour écrire des applications faciles à configurer, déployer et faire passer à l'échelle dans le cloud.",
+    "tags": [
+      "DevOps",
+      "Back",
+      "Architecture"
+    ],
+    "definitions": [
+      {
+        "term": "Codebase",
+        "definition": "un dépôt, plusieurs déploiements."
+      },
+      {
+        "term": "Dependencies",
+        "definition": "déclarées et isolées explicitement."
+      },
+      {
+        "term": "Config",
+        "definition": "dans les variables d'environnement, hors du code."
+      },
+      {
+        "term": "Backing services",
+        "definition": "base, cache et broker sont des ressources attachées, interchangeables par configuration."
+      },
+      {
+        "term": "Build, release, run",
+        "definition": "trois étapes séparées."
+      },
+      {
+        "term": "Processes",
+        "definition": "sans état."
+      },
+      {
+        "term": "Port binding",
+        "definition": "l'application expose elle-même son service sur un port."
+      },
+      {
+        "term": "Concurrency",
+        "definition": "on passe à l'échelle en ajoutant des processus."
+      },
+      {
+        "term": "Disposability",
+        "definition": "démarrage rapide, arrêt propre."
+      },
+      {
+        "term": "Dev/prod parity",
+        "definition": "des environnements aussi proches que possible."
+      },
+      {
+        "term": "Logs",
+        "definition": "écrits sur la sortie standard, comme un flux d'événements."
+      },
+      {
+        "term": "Admin processes",
+        "definition": "les tâches d'administration (migrations) tournent comme des processus ponctuels, avec le même code."
+      }
+    ],
+    "relatedSlugs": [
+      "stateless-sans-etat",
+      "microservices"
+    ]
+  },
+  {
+    "slug": "architecture-hexagonale-onion-et-clean",
+    "name": "Architecture hexagonale, Onion et Clean",
+    "summary": "Trois variantes d'une même idée : le métier au centre, sans dépendance vers la base ou le framework, et l'infrastructure branchée autour.",
+    "tags": [
+      "Architecture",
+      "Craftsmanship"
+    ],
+    "definitions": [
+      {
+        "term": "Hexagonale, ou Ports and Adapters (Alistair Cockburn, 2005)",
+        "definition": "le cœur expose des ports (interfaces). Les adaptateurs primaires (contrôleur REST, CLI, tests) pilotent l'application, les adaptateurs secondaires (base, e-mail, API) sont pilotés par elle."
+      },
+      {
+        "term": "Onion (Jeffrey Palermo, 2008)",
+        "definition": "des couches concentriques, avec le modèle de domaine au centre, puis les services de domaine et applicatifs, et l'infrastructure à l'extérieur."
+      },
+      {
+        "term": "Clean (Robert C. Martin, 2012)",
+        "definition": "des cercles Entities, Use Cases, Interface Adapters, Frameworks and Drivers, et une seule règle : les dépendances pointent vers l'intérieur."
+      },
+      {
+        "term": "Point commun",
+        "definition": "l'inversion des dépendances. Le centre définit les interfaces, l'extérieur les implémente."
+      }
+    ],
+    "relatedSlugs": [
+      "dip-dependency-inversion-principle",
+      "solid",
+      "architecture-n-tier-en-couches",
+      "monolithe-modulaire-modular-monolith",
+      "cqrs-command-query-responsibility-segregation"
+    ]
+  },
+  {
+    "slug": "file-de-messages-message-queue",
+    "name": "File de messages (Message Queue)",
+    "summary": "Un tampon entre producteur et consommateur pour traiter le travail en asynchrone, au rythme du consommateur, sans perdre de messages.",
+    "tags": [
+      "Architecture",
+      "Back"
+    ],
+    "definitions": [
+      {
+        "term": "Production",
+        "definition": "le producteur publie un message et reçoit un accusé de réception du broker."
+      },
+      {
+        "term": "Stockage",
+        "definition": "le broker conserve le message de façon durable jusqu'à son traitement."
+      },
+      {
+        "term": "Consommation",
+        "definition": "plusieurs consommateurs sur la même file se partagent le travail (competing consumers)."
+      },
+      {
+        "term": "Acquittement",
+        "definition": "le consommateur confirme (ack) après traitement. Sans ack, le message est relivré."
+      }
+    ],
+    "relatedSlugs": [
+      "dlq-dead-letter-queue",
+      "backpressure-contre-pression",
+      "backoff-exponentiel-et-jitter",
+      "event-sourcing"
+    ]
+  },
+  {
+    "slug": "loi-de-conway-conway-s-law",
+    "name": "Loi de Conway (Conway's Law)",
+    "summary": "Un système finit par reproduire la structure de communication de l'organisation qui le construit.",
+    "tags": [
+      "Architecture",
+      "Agile"
+    ],
+    "definitions": [
+      {
+        "term": "Constat",
+        "definition": "une équipe front, une équipe back et une équipe base de données produisent une architecture en trois couches, et chaque fonctionnalité demande de coordonner les trois."
+      },
+      {
+        "term": "Conséquence",
+        "definition": "changer l'architecture sans changer l'organisation tient mal, le code revient peu à peu à la forme de l'organigramme."
+      },
+      {
+        "term": "Manœuvre inverse",
+        "definition": "on choisit l'architecture cible, puis on forme des équipes alignées sur ses composants (une équipe par domaine métier, de bout en bout)."
+      }
+    ],
+    "relatedSlugs": [
+      "microservices",
+      "monolithe-modulaire-modular-monolith",
+      "architecture-n-tier-en-couches",
+      "adr-architecture-decision-record"
+    ]
+  },
+  {
+    "slug": "architecture-n-tier-en-couches",
+    "name": "Architecture N-tier (en couches)",
+    "summary": "Découper une application en couches empilées (présentation, métier, données), chacune n'appelant que celle du dessous.",
+    "tags": [
+      "Architecture"
+    ],
+    "definitions": [
+      {
+        "term": "Présentation",
+        "definition": "interface web, API, contrôleurs."
+      },
+      {
+        "term": "Métier",
+        "definition": "règles et cas d'usage."
+      },
+      {
+        "term": "Données",
+        "definition": "accès à la base, repositories, ORM."
+      },
+      {
+        "term": "Couche fermée ou ouverte",
+        "definition": "une couche fermée n'appelle que la suivante ; une couche ouverte peut être sautée, ce qui économise du code mais crée du couplage."
+      }
+    ],
+    "relatedSlugs": [
+      "architecture-hexagonale-onion-et-clean",
+      "dip-dependency-inversion-principle",
+      "loi-de-conway-conway-s-law",
+      "stateless-sans-etat"
+    ]
+  },
+  {
+    "slug": "backoff-exponentiel-et-jitter",
+    "name": "Backoff exponentiel et jitter",
+    "summary": "Espacer de plus en plus les nouvelles tentatives, avec une part de hasard, pour ne pas achever un service déjà en difficulté.",
+    "tags": [
+      "Back",
+      "Architecture"
+    ],
+    "definitions": [
+      {
+        "term": "Choisir quoi réessayer",
+        "definition": "seulement les erreurs passagères et les opérations idempotentes. Une erreur 400 échouera aussi au deuxième essai."
+      },
+      {
+        "term": "Backoff exponentiel",
+        "definition": "délai = base × 2^tentative, avec un plafond (par exemple 20 s)."
+      },
+      {
+        "term": "Jitter",
+        "definition": "tirer le délai au hasard. En full jitter, on attend un temps aléatoire entre 0 et le délai calculé."
+      },
+      {
+        "term": "Limiter",
+        "definition": "un nombre maximal de tentatives, ou un budget de retries global."
+      }
+    ],
+    "relatedSlugs": [
+      "file-de-messages-message-queue",
+      "dlq-dead-letter-queue",
+      "thundering-herd-effet-de-troupeau",
+      "circuit-breaker-disjoncteur"
+    ]
+  },
+  {
+    "slug": "microservices",
+    "name": "Microservices",
+    "summary": "Découper une application en petits services déployables séparément, chacun propriétaire de ses données et porté par une équipe.",
+    "tags": [
+      "Architecture",
+      "DevOps"
+    ],
+    "definitions": [
+      {
+        "term": "Découpage métier",
+        "definition": "un service par capacité ou par Bounded Context (Catalogue, Paiement), pas par couche technique."
+      },
+      {
+        "term": "Données privées",
+        "definition": "chaque service a sa base, les autres passent par son API ou ses événements."
+      },
+      {
+        "term": "Déploiement indépendant",
+        "definition": "chaque service a son pipeline et sa cadence."
+      },
+      {
+        "term": "Communication",
+        "definition": "synchrone (HTTP, gRPC) ou asynchrone (événements, files)."
+      },
+      {
+        "term": "Équipe propriétaire",
+        "definition": "elle construit le service et le fait tourner (you build it, you run it)."
+      }
+    ],
+    "relatedSlugs": [
+      "monolithe-modulaire-modular-monolith",
+      "loi-de-conway-conway-s-law",
+      "strangler-fig-figuier-etrangleur",
+      "circuit-breaker-disjoncteur",
+      "acid-atomicite-coherence-isolation-durabilite",
+      "twelve-factor-app"
+    ]
+  },
+  {
+    "slug": "etl-elt-extract-transform-load-extract-load-transform",
+    "name": "ETL / ELT (Extract, Transform, Load / Extract, Load, Transform)",
+    "summary": "Deux façons d'alimenter un entrepôt de données : transformer avant de charger (ETL), ou charger brut puis transformer dans l'entrepôt (ELT).",
+    "tags": [
+      "DB",
+      "Back"
+    ],
+    "definitions": [
+      {
+        "term": "Extract",
+        "definition": "lire les sources, en complet ou en incrémental (par date de mise à jour, ou par CDC, la capture des changements dans le journal de la base)."
+      },
+      {
+        "term": "Transform",
+        "definition": "nettoyer, dédoublonner, typer, joindre, agréger, appliquer les règles métier."
+      },
+      {
+        "term": "Load",
+        "definition": "écrire dans l'entrepôt (data warehouse) ou le lac de données (data lake)."
+      }
+    ],
+    "relatedSlugs": [
+      "cqrs-command-query-responsibility-segregation",
+      "backpressure-contre-pression",
+      "dlq-dead-letter-queue"
+    ]
+  },
+  {
+    "slug": "circuit-breaker-disjoncteur",
+    "name": "Circuit breaker (disjoncteur)",
+    "summary": "Couper les appels vers une dépendance en panne pour échouer vite, la laisser récupérer et éviter l'effet domino.",
+    "tags": [
+      "Architecture",
+      "Back"
+    ],
+    "definitions": [
+      {
+        "term": "Fermé",
+        "definition": "les appels passent, et il mesure le taux d'échecs et d'appels lents sur une fenêtre glissante."
+      },
+      {
+        "term": "Ouvert",
+        "definition": "au-delà du seuil (par exemple 50 % d'échecs sur 20 appels), tout appel échoue immédiatement ou renvoie un repli (fallback)."
+      },
+      {
+        "term": "Semi-ouvert",
+        "definition": "après un délai, quelques appels de test passent. S'ils réussissent, retour à fermé ; sinon, retour à ouvert."
+      }
+    ],
+    "relatedSlugs": [
+      "backoff-exponentiel-et-jitter",
+      "thundering-herd-effet-de-troupeau",
+      "bulkhead-cloisonnement",
+      "backpressure-contre-pression",
+      "microservices"
+    ]
+  },
+  {
+    "slug": "solid",
+    "name": "SOLID",
+    "summary": "Cinq principes de conception objet pour qu'un changement de besoin touche peu de code et que ce code reste testable.",
+    "tags": [
+      "Craftsmanship",
+      "Architecture"
+    ],
+    "definitions": [
+      {
+        "term": "S, Single Responsibility",
+        "definition": "un module n'a qu'une raison de changer, parce qu'il ne répond qu'à un seul acteur (le métier, la compta, l'exploitation). On le confond souvent avec « une classe ne fait qu'une chose »."
+      },
+      {
+        "term": "O, Open/Closed",
+        "definition": "on ajoute un comportement en écrivant du nouveau code plutôt qu'en modifiant l'existant. Un nouveau moyen de paiement devient une nouvelle classe, sans ajouter de case à un switch."
+      },
+      {
+        "term": "L, Liskov Substitution",
+        "definition": "un sous-type doit pouvoir remplacer son parent sans surprendre l'appelant. Une méthode héritée qui lève « non supporté » viole le principe."
+      },
+      {
+        "term": "I, Interface Segregation",
+        "definition": "un client ne doit pas dépendre de méthodes qu'il n'utilise pas. Mieux vaut plusieurs petites interfaces qu'une grosse."
+      },
+      {
+        "term": "D, Dependency Inversion",
+        "definition": "le code métier dépend d'abstractions qu'il définit lui-même, et les détails (base, API, Kafka) les implémentent. Dans NestJS, l'injection de dépendances sert à mettre ce principe en place."
+      }
+    ],
+    "relatedSlugs": [
+      "kiss-keep-it-simple-stupid",
+      "yagni-you-aren-t-gonna-need-it",
+      "tdd-test-driven-development",
+      "ddd-domain-driven-design",
+      "dip-dependency-inversion-principle",
+      "architecture-hexagonale-onion-et-clean"
+    ]
+  },
+  {
+    "slug": "acid-atomicite-coherence-isolation-durabilite",
+    "name": "ACID (Atomicité, Cohérence, Isolation, Durabilité)",
+    "summary": "Les quatre garanties d'une transaction en base : tout ou rien, état valide, pas d'interférence entre transactions, rien de perdu après le commit.",
+    "tags": [
+      "DB",
+      "Back"
+    ],
+    "definitions": [
+      {
+        "term": "Atomicité",
+        "definition": "tout ou rien. Au moindre échec, ROLLBACK annule tout ce que la transaction a écrit."
+      },
+      {
+        "term": "Cohérence",
+        "definition": "la base passe d'un état valide à un autre. Elle fait respecter ses contraintes (UNIQUE, CHECK, clés étrangères) ; les autres règles métier restent à la charge du code. Kleppmann note que ce « C » appartient surtout à l'application."
+      },
+      {
+        "term": "Isolation",
+        "definition": "des transactions simultanées ne se gênent pas. SERIALIZABLE donne le même résultat qu'une exécution l'une après l'autre ; READ COMMITTED et REPEATABLE READ vont plus vite mais tolèrent des anomalies, comme la mise à jour perdue ou le write skew."
+      },
+      {
+        "term": "Durabilité",
+        "definition": "une fois le COMMIT confirmé, la donnée survit à un crash. PostgreSQL l'écrit d'abord dans son journal (WAL) sur disque."
+      }
+    ],
+    "relatedSlugs": [
+      "ddd-domain-driven-design",
+      "microservices"
+    ]
+  },
+  {
+    "slug": "regle-du-boy-scout-boy-scout-rule",
+    "name": "Règle du boy-scout (Boy Scout Rule)",
+    "summary": "Laisser le code un peu plus propre qu'on ne l'a trouvé, à chaque passage.",
+    "tags": [
+      "Craftsmanship"
+    ],
+    "definitions": [
+      {
+        "term": "Périmètre",
+        "definition": "on nettoie le code qu'on touche pour la tâche en cours, et lui seul."
+      },
+      {
+        "term": "Taille",
+        "definition": "des améliorations de quelques minutes, qui ne changent pas le comportement."
+      },
+      {
+        "term": "Filet de sécurité",
+        "definition": "sans tests, on se limite aux refactorings automatiques de l'IDE (renommer, extraire), ou on écrit d'abord un test."
+      },
+      {
+        "term": "Séparation",
+        "definition": "idéalement un commit à part, pour que la revue distingue le nettoyage du changement fonctionnel."
+      }
+    ],
+    "relatedSlugs": [
+      "tdd-test-driven-development",
+      "dry-don-t-repeat-yourself",
+      "kiss-keep-it-simple-stupid"
+    ]
+  },
+  {
+    "slug": "kiss-keep-it-simple-stupid",
+    "name": "KISS (Keep It Simple, Stupid)",
+    "summary": "Choisir la solution la plus simple qui résout le problème, pour un code facile à lire et à modifier.",
+    "tags": [
+      "Craftsmanship"
+    ],
+    "definitions": [],
+    "relatedSlugs": [
+      "yagni-you-aren-t-gonna-need-it",
+      "dry-don-t-repeat-yourself",
+      "tdd-test-driven-development",
+      "solid",
+      "regle-du-boy-scout-boy-scout-rule"
+    ]
+  },
+  {
+    "slug": "yagni-you-aren-t-gonna-need-it",
+    "name": "YAGNI (You Aren't Gonna Need It)",
+    "summary": "Ne coder une fonctionnalité qu'au moment où elle devient nécessaire, jamais par anticipation.",
+    "tags": [
+      "Craftsmanship",
+      "Agile"
+    ],
+    "definitions": [
+      {
+        "term": "Construction",
+        "definition": "le temps passé à l'écrire au lieu de livrer ce qui compte maintenant."
+      },
+      {
+        "term": "Retard",
+        "definition": "la valeur réellement attendue arrive plus tard."
+      },
+      {
+        "term": "Portage",
+        "definition": "chaque ligne en plus alourdit le code et ralentit chaque modification."
+      },
+      {
+        "term": "Réparation",
+        "definition": "si le besoin arrive sous une autre forme, il faut défaire ce qu'on avait anticipé."
+      }
+    ],
+    "relatedSlugs": [
+      "kiss-keep-it-simple-stupid",
+      "dry-don-t-repeat-yourself",
+      "tdd-test-driven-development",
+      "solid"
+    ]
+  },
+  {
+    "slug": "dry-don-t-repeat-yourself",
+    "name": "DRY (Don't Repeat Yourself)",
+    "summary": "Chaque connaissance du système doit avoir une seule représentation, claire et qui fait autorité.",
+    "tags": [
+      "Craftsmanship"
+    ],
+    "definitions": [
+      {
+        "term": "Connaissance",
+        "definition": "une règle métier, un format, une constante, un schéma. C'est ce que DRY protège."
+      },
+      {
+        "term": "Duplication accidentelle",
+        "definition": "deux codes identiques aujourd'hui qui changeront pour des raisons différentes. Les fusionner crée un couplage inutile."
+      },
+      {
+        "term": "Règle de trois",
+        "definition": "on tolère deux copies et on extrait à la troisième, quand le point commun est clair."
+      },
+      {
+        "term": "Source de vérité",
+        "definition": "DRY vaut aussi hors du code. Un schéma de base ou un contrat OpenAPI peut générer les types au lieu qu'on les recopie."
+      }
+    ],
+    "relatedSlugs": [
+      "yagni-you-aren-t-gonna-need-it",
+      "kiss-keep-it-simple-stupid",
+      "ddd-domain-driven-design",
+      "regle-du-boy-scout-boy-scout-rule"
+    ]
+  },
+  {
+    "slug": "bdd-behavior-driven-development",
+    "name": "BDD (Behavior-Driven Development)",
+    "summary": "Décrire avec le métier le comportement attendu sous forme d'exemples Given / When / Then, puis les automatiser.",
+    "tags": [
+      "Craftsmanship",
+      "Testing",
+      "Agile"
+    ],
+    "definitions": [
+      {
+        "term": "Découvrir",
+        "definition": "un atelier à plusieurs (souvent les Three Amigos : PO, dev et QA, ou un Example Mapping) pour trouver les règles et les exemples."
+      },
+      {
+        "term": "Formuler",
+        "definition": "écrire les exemples en Gherkin, avec le vocabulaire du métier."
+      },
+      {
+        "term": "Automatiser",
+        "definition": "relier chaque étape à du code de test (Cucumber, SpecFlow, Behave…), puis développer en TDD jusqu'à ce que le scénario passe."
+      }
+    ],
+    "relatedSlugs": [
+      "tdd-test-driven-development",
+      "ddd-domain-driven-design"
+    ]
+  },
+  {
+    "slug": "ddd-domain-driven-design",
+    "name": "DDD (Domain-Driven Design)",
+    "summary": "Modéliser le logiciel au plus près du métier, avec un langage commun et des frontières claires (Bounded Contexts).",
+    "tags": [
+      "Architecture",
+      "Back",
+      "Craftsmanship"
+    ],
+    "definitions": [
+      {
+        "term": "Stratégique, le plus important",
+        "definition": "Ubiquitous Language, Bounded Contexts, Context Map (les relations entre contextes) et distinction entre core, supporting et generic domain pour savoir où investir."
+      },
+      {
+        "term": "Tactique, les briques dans le code",
+        "definition": "Entity (a une identité), Value Object (immuable, défini par ses valeurs), Aggregate (frontière de cohérence avec une racine), Domain Event, Repository, Domain Service."
+      }
+    ],
+    "relatedSlugs": [
+      "tdd-test-driven-development",
+      "bdd-behavior-driven-development",
+      "dry-don-t-repeat-yourself",
+      "solid",
+      "acid-atomicite-coherence-isolation-durabilite",
+      "monolithe-modulaire-modular-monolith"
+    ]
+  },
+  {
+    "slug": "tdd-test-driven-development",
+    "name": "TDD (Test-Driven Development)",
+    "summary": "Écrire le test avant le code, en petits cycles Red, Green, Refactor.",
+    "tags": [
+      "Craftsmanship",
+      "Testing"
+    ],
+    "definitions": [
+      {
+        "term": "Red",
+        "definition": "écrire un test pour un petit comportement. Il échoue."
+      },
+      {
+        "term": "Green",
+        "definition": "écrire le code le plus simple qui le fait passer, même naïf."
+      },
+      {
+        "term": "Refactor",
+        "definition": "améliorer le code et les tests sans changer le comportement. Les tests restent verts."
+      }
+    ],
+    "relatedSlugs": [
+      "bdd-behavior-driven-development",
+      "ddd-domain-driven-design",
+      "yagni-you-aren-t-gonna-need-it",
+      "kiss-keep-it-simple-stupid",
+      "regle-du-boy-scout-boy-scout-rule",
+      "solid"
+    ]
+  }
+]

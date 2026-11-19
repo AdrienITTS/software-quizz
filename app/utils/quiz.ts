@@ -12,6 +12,7 @@ export type QuizItem = {
   quote?: string
   options: string[]
   answerIndex: number
+  explanation: string
 }
 
 export type QuizTag = { tag: string; conceptCount: number }
@@ -77,46 +78,21 @@ export function quizTags(concepts: Concept[]): QuizTag[] {
 const TRUE_FALSE_OPTIONS = ['Vrai', 'Faux']
 
 function toQuizItem(question: Question, concept: Concept): QuizItem {
-  const base = { id: question.id, concept }
+  const base = { id: question.id, concept, explanation: question.explanation }
 
-  switch (question.kind) {
-    case 'concept-to-summary':
-      return {
-        ...base,
-        prompt: `Quelle phrase résume ${question.conceptName}\u00a0?`,
-        options: question.choices,
-        answerIndex: question.answerIndex,
-      }
-    case 'summary-to-concept':
-      return {
-        ...base,
-        prompt: 'Quel concept ce résumé décrit-il\u00a0?',
-        quote: question.maskedSummary,
-        options: question.choices,
-        answerIndex: question.answerIndex,
-      }
-    case 'related-concept':
-      return {
-        ...base,
-        prompt: `Lequel de ces concepts est lié à ${question.conceptName}\u00a0?`,
-        options: question.choices,
-        answerIndex: question.answerIndex,
-      }
-    case 'summary-true-false':
-      return {
-        ...base,
-        prompt: `Vrai ou faux\u00a0: ce résumé décrit ${question.conceptName}.`,
-        quote: question.summary,
-        options: TRUE_FALSE_OPTIONS,
-        answerIndex: question.answer ? 0 : 1,
-      }
-    case 'definition-true-false':
-      return {
-        ...base,
-        prompt: `Vrai ou faux\u00a0: dans ${question.conceptName}, voici «\u00a0${question.term}\u00a0».`,
-        quote: question.definition,
-        options: TRUE_FALSE_OPTIONS,
-        answerIndex: question.answer ? 0 : 1,
-      }
+  if (question.kind === 'true-false') {
+    return {
+      ...base,
+      prompt: 'Vrai ou faux\u00a0?',
+      quote: question.statement,
+      options: TRUE_FALSE_OPTIONS,
+      answerIndex: question.answer ? 0 : 1,
+    }
+  }
+  return {
+    ...base,
+    prompt: question.prompt,
+    options: question.choices,
+    answerIndex: question.answerIndex,
   }
 }

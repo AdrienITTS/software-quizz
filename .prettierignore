@@ -2,6 +2,6 @@
 .nuxt
 node_modules
 package-lock.json
-generated
+data
 test-results
 playwright-report

@@ -26,8 +26,8 @@ logs
 # Tests
 coverage
 
-# Notion export and generated questions (build artifacts)
-generated
+# Question drafts written by the generate-questions skill, merged by questions:apply
+data/drafts
 
 # Playwright
 test-results

@@ -15,14 +15,15 @@ function concept(slug: string, tags: string[] = ['Craftsmanship']): Concept {
   }
 }
 
-function relatedQuestion(conceptSlug: string, index = 0): Question {
+function choiceQuestion(conceptSlug: string, index = 0): Question {
   return {
-    id: `related-concept:${conceptSlug}:${index}`,
-    kind: 'related-concept',
+    id: `${conceptSlug}:${index}`,
+    kind: 'multiple-choice',
     conceptSlug,
-    conceptName: conceptSlug.toUpperCase(),
+    prompt: `Question ${index} sur ${conceptSlug}\u00a0?`,
     choices: ['A', 'B', 'C', 'D'],
     answerIndex: 2,
+    explanation: 'Parce que C.',
   }
 }
 
@@ -33,8 +34,8 @@ describe('buildQuiz', () => {
     concept(`c${index}`, index < 4 ? ['Architecture'] : ['Craftsmanship']),
   )
   const questions = concepts.flatMap((item) => [
-    relatedQuestion(item.slug, 0),
-    relatedQuestion(item.slug, 1),
+    choiceQuestion(item.slug, 0),
+    choiceQuestion(item.slug, 1),
   ])
 
   it(`asks ${QUIZ_LENGTH} questions on as many different concepts`, () => {
@@ -68,65 +69,41 @@ describe('quiz items', () => {
   const solid = concept('solid')
   const quizOf = (question: Question) => buildQuiz([question], [solid], {}, random())
 
-  it('asks for the summary of a concept', () => {
-    const [item] = quizOf({
-      id: 'q',
-      kind: 'concept-to-summary',
-      conceptSlug: 'solid',
-      conceptName: 'SOLID',
-      choices: ['a', 'b', 'c', 'd'],
-      answerIndex: 1,
-    })
+  it('shows a multiple-choice question as written, with its explanation', () => {
+    const [item] = quizOf(choiceQuestion('solid'))
 
     expect(item).toMatchObject({
-      prompt: 'Quelle phrase résume SOLID\u00a0?',
-      options: ['a', 'b', 'c', 'd'],
-      answerIndex: 1,
+      prompt: 'Question 0 sur solid\u00a0?',
+      options: ['A', 'B', 'C', 'D'],
+      answerIndex: 2,
+      explanation: 'Parce que C.',
     })
     expect(item?.quote).toBeUndefined()
-  })
-
-  it('quotes the masked summary when asking for the concept', () => {
-    const [item] = quizOf({
-      id: 'q',
-      kind: 'summary-to-concept',
-      conceptSlug: 'solid',
-      maskedSummary: '___ regroupe cinq principes.',
-      choices: ['KISS', 'SOLID', 'DRY', 'TDD'],
-      answerIndex: 1,
-    })
-
-    expect(item).toMatchObject({
-      prompt: 'Quel concept ce résumé décrit-il\u00a0?',
-      quote: '___ regroupe cinq principes.',
-      answerIndex: 1,
-    })
   })
 
   it.each([
     [true, 0],
     [false, 1],
-  ])('turns a true or false question into two options (answer %s)', (answer, answerIndex) => {
+  ])('turns a true or false statement into two options (answer %s)', (answer, answerIndex) => {
     const [item] = quizOf({
       id: 'q',
-      kind: 'definition-true-false',
+      kind: 'true-false',
       conceptSlug: 'solid',
-      conceptName: 'SOLID',
-      term: 'S, Single Responsibility',
-      definition: 'Une seule raison de changer.',
+      statement: 'Un module ne doit avoir qu’une raison de changer.',
       answer,
+      explanation: 'C’est le S de SOLID.',
     })
 
     expect(item).toMatchObject({
-      prompt: 'Vrai ou faux\u00a0: dans SOLID, voici «\u00a0S, Single Responsibility\u00a0».',
-      quote: 'Une seule raison de changer.',
+      prompt: 'Vrai ou faux\u00a0?',
+      quote: 'Un module ne doit avoir qu’une raison de changer.',
       options: ['Vrai', 'Faux'],
       answerIndex,
     })
   })
 
   it('carries the concept for the correction', () => {
-    const [item] = quizOf(relatedQuestion('solid'))
+    const [item] = quizOf(choiceQuestion('solid'))
 
     expect(item?.concept).toEqual(solid)
   })
@@ -134,7 +111,7 @@ describe('quiz items', () => {
 
 describe('buildReviewQuiz', () => {
   const concepts = Array.from({ length: 12 }, (_, index) => concept(`c${index}`))
-  const questions = concepts.map((item) => relatedQuestion(item.slug))
+  const questions = concepts.map((item) => choiceQuestion(item.slug))
 
   it('asks the due questions in the given order, up to a full quiz', () => {
     const dueIds = [...questions].reverse().map((question) => question.id)
@@ -145,9 +122,9 @@ describe('buildReviewQuiz', () => {
   })
 
   it('skips the ids of questions that no longer exist', () => {
-    const quiz = buildReviewQuiz(questions, concepts, ['gone', 'related-concept:c3:0'])
+    const quiz = buildReviewQuiz(questions, concepts, ['gone', 'c3:0'])
 
-    expect(quiz.map((item) => item.id)).toEqual(['related-concept:c3:0'])
+    expect(quiz.map((item) => item.id)).toEqual(['c3:0'])
   })
 })
 

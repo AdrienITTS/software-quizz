@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-# The CI writes generated/*.json before the build. The Notion token never reaches this image.
+# The site is built from the committed data/*.json: no Notion access, no secret.
 
 # ---------- Stage 1: pre-render the static site ----------
 FROM node:24-alpine AS build

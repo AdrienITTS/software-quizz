@@ -1,28 +1,22 @@
 type QuestionBase = {
-  /** Stable across builds while the question's answer stays the same, so progress survives. */
+  /** Stable while the question's wording stays the same, so the visitor's progress survives. */
   id: string
   conceptSlug: string
-}
-
-type MultipleChoice = {
-  choices: string[]
-  answerIndex: number
+  /** Why the right answer is right, shown with the correction. */
+  explanation: string
 }
 
 export type Question =
-  | (QuestionBase & MultipleChoice & { kind: 'concept-to-summary'; conceptName: string })
-  | (QuestionBase & MultipleChoice & { kind: 'summary-to-concept'; maskedSummary: string })
-  | (QuestionBase & MultipleChoice & { kind: 'related-concept'; conceptName: string })
   | (QuestionBase & {
-      kind: 'summary-true-false'
-      conceptName: string
-      summary: string
-      answer: boolean
+      kind: 'multiple-choice'
+      prompt: string
+      choices: string[]
+      answerIndex: number
     })
-  | (QuestionBase & {
-      kind: 'definition-true-false'
-      conceptName: string
-      term: string
-      definition: string
-      answer: boolean
-    })
+  | (QuestionBase & { kind: 'true-false'; statement: string; answer: boolean })
+
+/** The committed questions, with the hash of each concept they were written from. */
+export type QuestionBank = {
+  sourceHashes: Record<string, string>
+  questions: Question[]
+}

@@ -1,11 +1,8 @@
-import { mkdir, writeFile } from 'node:fs/promises'
 import { Client, collectPaginatedAPI, isNotionClientError, LogLevel } from '@notionhq/client'
 import { z } from 'zod'
-import { findNotionTraces } from './notion/find-notion-traces.ts'
 import { parseConcepts, type NotionConceptSheet } from './notion/parse-concepts.ts'
+import { CONCEPTS_FILE, writeDataFile } from './data-files.ts'
 
-const OUTPUT_DIR = 'generated'
-const OUTPUT_FILE = `${OUTPUT_DIR}/concepts.json`
 const PUBLISHED_STATUS = '✅ Rédigé'
 
 const env = z
@@ -47,11 +44,5 @@ try {
 }
 
 const concepts = parseConcepts(sheets)
-const json = `${JSON.stringify(concepts, null, 2)}\n`
-
-const traces = findNotionTraces(json)
-if (traces.length > 0) throw new Error(`The output contains Notion traces: ${traces.join(', ')}`)
-
-await mkdir(OUTPUT_DIR, { recursive: true })
-await writeFile(OUTPUT_FILE, json)
-console.log(`Wrote ${concepts.length} concepts to ${OUTPUT_FILE}`)
+await writeDataFile(CONCEPTS_FILE, concepts)
+console.log(`Wrote ${concepts.length} concepts to ${CONCEPTS_FILE}`)
