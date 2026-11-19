@@ -61,8 +61,13 @@ one true-or-false.
 
 ## What makes a good question
 
-- Write natural, correct French, as a teacher would. Each question must make sense on its
-  own, without the sheet in front of you. Never paste a fragment of a sentence as a quote.
+- Write natural, correct French, as a teacher would. Never paste a fragment of a sentence as a
+  quote.
+- Every question must make sense on its own: quizzes mix concepts and the site never shows
+  which concept a question belongs to. Name the concept or its field in the wording ("En
+  CQRS, …", "Dans une file de messages, …"), unless the question asks for that concept. Read
+  each prompt as if it came out of nowhere: "Que se passe-t-il à l'état semi-ouvert ?" fails,
+  "Un circuit breaker est à l'état semi-ouvert… Que se passe-t-il ?" works.
 - Test understanding, not wording: what a concept is for, when to use it, how it differs from
   a related one, what a term means, a typical consequence. Avoid trivia such as dates or
   author names unless the sheet makes them central.
@@ -86,3 +91,10 @@ one true-or-false.
   concept doesn't support: the site only publishes these fields, and a wrong "fact" in a quiz
   is worse than a missing question.
 - Never mention Notion, a sheet ("fiche"), the author, or any URL or id.
+
+## Fixing existing questions
+
+To reword questions of a concept that hasn't changed, write a draft for that concept with all
+its current questions (from `data/questions.json`, in draft form), changing only the faulty
+ones, then run `npm run questions:apply`. An id depends on the concept and the wording, so the
+untouched questions keep their id and the visitor's progress on them.

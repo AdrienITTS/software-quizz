@@ -143,133 +143,133 @@
     },
     {
       "id": "shuffle-sharding:1ditrn1",
-      "conceptSlug": "shuffle-sharding",
-      "explanation": "Chaque client reçoit une combinaison aléatoire de quelques serveurs : un client qui pose problème n'en dégrade qu'une petite partie.",
       "kind": "multiple-choice",
+      "conceptSlug": "shuffle-sharding",
       "prompt": "Quel est le but du shuffle sharding ?",
       "choices": [
-        "Chiffrer les données de chaque client sur un serveur différent",
-        "Répartir la charge pour que chaque serveur reçoive exactement le même trafic",
         "Réduire le nombre de serveurs nécessaires",
-        "Qu'un client toxique n'affecte qu'une infime partie des autres clients"
+        "Répartir la charge pour que chaque serveur reçoive exactement le même trafic",
+        "Qu'un client toxique n'affecte qu'une infime partie des autres clients",
+        "Chiffrer les données de chaque client sur un serveur différent"
       ],
-      "answerIndex": 3
+      "answerIndex": 2,
+      "explanation": "Chaque client reçoit une combinaison aléatoire de quelques serveurs : un client qui pose problème n'en dégrade qu'une petite partie."
     },
     {
-      "id": "shuffle-sharding:1sd9zu7",
-      "conceptSlug": "shuffle-sharding",
-      "explanation": "Il y a 28 façons de choisir 2 serveurs parmi 8. C'est ce nombre de combinaisons qui isole les clients les uns des autres.",
+      "id": "shuffle-sharding:l0136z",
       "kind": "multiple-choice",
-      "prompt": "Avec 8 serveurs et une paire de serveurs par client, combien de combinaisons différentes existe-t-il ?",
+      "conceptSlug": "shuffle-sharding",
+      "prompt": "En shuffle sharding, avec 8 serveurs et une paire de serveurs par client, combien de combinaisons différentes existe-t-il ?",
       "choices": [
+        "16",
         "64",
         "28",
-        "16",
         "8"
       ],
-      "answerIndex": 1
+      "answerIndex": 2,
+      "explanation": "Il y a 28 façons de choisir 2 serveurs parmi 8. C'est ce nombre de combinaisons qui isole les clients les uns des autres."
     },
     {
       "id": "shuffle-sharding:huazzf",
-      "conceptSlug": "shuffle-sharding",
-      "explanation": "Seuls les clients qui ont exactement la même paire perdent tout. Ceux qui partagent un seul serveur continuent sur l'autre.",
       "kind": "true-false",
+      "conceptSlug": "shuffle-sharding",
       "statement": "En shuffle sharding, si les deux serveurs d'un client tombent, tous les clients qui partagent l'un de ces serveurs perdent le service.",
-      "answer": false
+      "answer": false,
+      "explanation": "Seuls les clients qui ont exactement la même paire perdent tout. Ceux qui partagent un seul serveur continuent sur l'autre."
     },
     {
       "id": "shuffle-sharding:18ibys0",
-      "conceptSlug": "shuffle-sharding",
-      "explanation": "Si un serveur de sa combinaison est indisponible, le client doit basculer sur l'autre pour continuer à être servi.",
       "kind": "true-false",
+      "conceptSlug": "shuffle-sharding",
       "statement": "Pour profiter du shuffle sharding, le client doit savoir réessayer sur un autre serveur de sa combinaison.",
-      "answer": true
+      "answer": true,
+      "explanation": "Si un serveur de sa combinaison est indisponible, le client doit basculer sur l'autre pour continuer à être servi."
     },
     {
       "id": "shuffle-sharding:1fsbx91",
-      "conceptSlug": "shuffle-sharding",
-      "explanation": "Un voisin bruyant consomme trop de ressources partagées. Le shuffle sharding limite le nombre de clients qui partagent exactement ses serveurs.",
       "kind": "multiple-choice",
+      "conceptSlug": "shuffle-sharding",
       "prompt": "Contre quel problème le shuffle sharding est-il une réponse ?",
       "choices": [
-        "Le thundering herd",
         "Le cache stampede",
+        "Le voisin bruyant",
         "La cohérence à terme",
-        "Le voisin bruyant"
+        "Le thundering herd"
       ],
-      "answerIndex": 3
+      "answerIndex": 1,
+      "explanation": "Un voisin bruyant consomme trop de ressources partagées. Le shuffle sharding limite le nombre de clients qui partagent exactement ses serveurs."
     },
     {
       "id": "monolithe-modulaire-modular-monolith:18m877u",
-      "conceptSlug": "monolithe-modulaire-modular-monolith",
-      "explanation": "On reste sur une seule application déployée d'un bloc, mais découpée en modules dont les frontières sont vérifiées.",
       "kind": "multiple-choice",
+      "conceptSlug": "monolithe-modulaire-modular-monolith",
       "prompt": "Qu'est-ce qui distingue un monolithe modulaire d'un monolithe classique ?",
       "choices": [
-        "Chaque module a son propre serveur et son propre pipeline",
-        "Il est découpé en modules métier aux frontières strictes et vérifiées",
         "Il n'a pas de base de données",
-        "Il est déployé en plusieurs services indépendants"
+        "Chaque module a son propre serveur et son propre pipeline",
+        "Il est déployé en plusieurs services indépendants",
+        "Il est découpé en modules métier aux frontières strictes et vérifiées"
       ],
-      "answerIndex": 1
+      "answerIndex": 3,
+      "explanation": "On reste sur une seule application déployée d'un bloc, mais découpée en modules dont les frontières sont vérifiées."
     },
     {
       "id": "monolithe-modulaire-modular-monolith:1ohgep9",
-      "conceptSlug": "monolithe-modulaire-modular-monolith",
-      "explanation": "Un module correspond à un Bounded Context, pas à une couche technique.",
       "kind": "multiple-choice",
+      "conceptSlug": "monolithe-modulaire-modular-monolith",
       "prompt": "Selon quoi découpe-t-on les modules d'un monolithe modulaire ?",
       "choices": [
-        "Par langage de programmation",
+        "Par domaine métier (Commandes, Catalogue, Facturation)",
         "Par couche technique (contrôleurs, services, dépôts)",
         "Par équipe de développement, sans lien avec le métier",
-        "Par domaine métier (Commandes, Catalogue, Facturation)"
+        "Par langage de programmation"
       ],
-      "answerIndex": 3
+      "answerIndex": 0,
+      "explanation": "Un module correspond à un Bounded Context, pas à une couche technique."
     },
     {
       "id": "monolithe-modulaire-modular-monolith:1hpt3st",
-      "conceptSlug": "monolithe-modulaire-modular-monolith",
-      "explanation": "Chaque module a ses données privées : un schéma ou des tables à lui, sans jointure entre modules.",
       "kind": "true-false",
+      "conceptSlug": "monolithe-modulaire-modular-monolith",
       "statement": "Dans un monolithe modulaire, un module peut faire une jointure SQL sur les tables d'un autre module.",
-      "answer": false
+      "answer": false,
+      "explanation": "Chaque module a ses données privées : un schéma ou des tables à lui, sans jointure entre modules."
     },
     {
       "id": "monolithe-modulaire-modular-monolith:18nfbwx",
-      "conceptSlug": "monolithe-modulaire-modular-monolith",
-      "explanation": "Chaque module expose une API publique : c'est ce qui garde les frontières nettes.",
       "kind": "true-false",
+      "conceptSlug": "monolithe-modulaire-modular-monolith",
       "statement": "Dans un monolithe modulaire, un module n'appelle que l'interface publique d'un autre, jamais ses classes internes.",
-      "answer": true
+      "answer": true,
+      "explanation": "Chaque module expose une API publique : c'est ce qui garde les frontières nettes."
     },
     {
-      "id": "monolithe-modulaire-modular-monolith:qpcic9",
-      "conceptSlug": "monolithe-modulaire-modular-monolith",
-      "explanation": "Des outils comme ArchUnit ou Spring Modulith, ou les modules du langage, font échouer le build quand une règle est violée.",
+      "id": "monolithe-modulaire-modular-monolith:irwj5t",
       "kind": "multiple-choice",
-      "prompt": "Comment s'assure-t-on que les règles entre modules sont respectées ?",
+      "conceptSlug": "monolithe-modulaire-modular-monolith",
+      "prompt": "Dans un monolithe modulaire, comment s'assure-t-on que les règles entre modules sont respectées ?",
       "choices": [
-        "En déployant chaque module dans un conteneur séparé",
+        "Des tests d'architecture font échouer le build en cas de violation",
         "Une relecture manuelle avant chaque mise en production",
         "On ne le vérifie pas, c'est une convention d'équipe",
-        "Des tests d'architecture font échouer le build en cas de violation"
+        "En déployant chaque module dans un conteneur séparé"
       ],
-      "answerIndex": 3
+      "answerIndex": 0,
+      "explanation": "Des outils comme ArchUnit ou Spring Modulith, ou les modules du langage, font échouer le build quand une règle est violée."
     },
     {
       "id": "monolithe-modulaire-modular-monolith:vxtnqg",
-      "conceptSlug": "monolithe-modulaire-modular-monolith",
-      "explanation": "Tout tourne dans la même application : les modules s'appellent en mémoire ou publient des événements internes.",
       "kind": "multiple-choice",
+      "conceptSlug": "monolithe-modulaire-modular-monolith",
       "prompt": "Comment communiquent les modules d'un monolithe modulaire ?",
       "choices": [
-        "En lisant directement les tables des autres modules",
-        "Par des fichiers partagés sur disque",
         "Uniquement par des appels HTTP entre services",
-        "Par des appels en mémoire ou des événements internes"
+        "Par des appels en mémoire ou des événements internes",
+        "Par des fichiers partagés sur disque",
+        "En lisant directement les tables des autres modules"
       ],
-      "answerIndex": 3
+      "answerIndex": 1,
+      "explanation": "Tout tourne dans la même application : les modules s'appellent en mémoire ou publient des événements internes."
     },
     {
       "id": "dlq-dead-letter-queue:1y67q6p",
@@ -519,61 +519,61 @@
     },
     {
       "id": "bulkhead-cloisonnement:qu2om4",
-      "conceptSlug": "bulkhead-cloisonnement",
-      "explanation": "Comme les compartiments étanches d'un navire : une partie qui sature ne consomme pas les ressources des autres.",
       "kind": "multiple-choice",
+      "conceptSlug": "bulkhead-cloisonnement",
       "prompt": "Quel est le principe du cloisonnement (bulkhead) ?",
       "choices": [
-        "Couper les appels vers un service dès qu'il échoue trop souvent",
         "Mettre en file les messages qui ne peuvent pas être traités",
-        "Réserver des ressources séparées à chaque usage pour qu'une partie saturée n'entraîne pas tout le système",
-        "Faire ralentir le producteur quand le consommateur est saturé"
+        "Faire ralentir le producteur quand le consommateur est saturé",
+        "Couper les appels vers un service dès qu'il échoue trop souvent",
+        "Réserver des ressources séparées à chaque usage pour qu'une partie saturée n'entraîne pas tout le système"
       ],
-      "answerIndex": 2
+      "answerIndex": 3,
+      "explanation": "Comme les compartiments étanches d'un navire : une partie qui sature ne consomme pas les ressources des autres."
     },
     {
       "id": "bulkhead-cloisonnement:z0qm0w",
-      "conceptSlug": "bulkhead-cloisonnement",
-      "explanation": "Chaque service appelé dispose de ressources limitées à lui : s'il devient lent, il n'épuise pas celles des autres.",
       "kind": "multiple-choice",
+      "conceptSlug": "bulkhead-cloisonnement",
       "prompt": "Comment applique-t-on le cloisonnement par dépendance ?",
       "choices": [
         "Un pool de threads ou un sémaphore de taille maximale par service appelé",
+        "Un cache devant chaque service appelé",
         "Un retry automatique sur chaque appel",
-        "Un seul pool de threads partagé par tous les appels sortants",
-        "Un cache devant chaque service appelé"
+        "Un seul pool de threads partagé par tous les appels sortants"
       ],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "explanation": "Chaque service appelé dispose de ressources limitées à lui : s'il devient lent, il n'épuise pas celles des autres."
     },
     {
-      "id": "bulkhead-cloisonnement:5lehnu",
-      "conceptSlug": "bulkhead-cloisonnement",
-      "explanation": "On rejette vite ou on renvoie un repli, sans mise en attente : attendre propagerait la saturation.",
+      "id": "bulkhead-cloisonnement:1cllel",
       "kind": "true-false",
-      "statement": "Quand un compartiment est plein, on met les nouvelles demandes en attente jusqu'à ce qu'une place se libère.",
-      "answer": false
+      "conceptSlug": "bulkhead-cloisonnement",
+      "statement": "Avec le cloisonnement (bulkhead), quand un compartiment est plein, on met les nouvelles demandes en attente jusqu'à ce qu'une place se libère.",
+      "answer": false,
+      "explanation": "On rejette vite ou on renvoie un repli, sans mise en attente : attendre propagerait la saturation."
     },
     {
       "id": "bulkhead-cloisonnement:1a3i7f5",
-      "conceptSlug": "bulkhead-cloisonnement",
-      "explanation": "C'est le cloisonnement par type de charge : un batch lourd ne peut plus ralentir les utilisateurs.",
       "kind": "true-false",
+      "conceptSlug": "bulkhead-cloisonnement",
       "statement": "Séparer les requêtes interactives des traitements batch est une forme de cloisonnement.",
-      "answer": true
+      "answer": true,
+      "explanation": "C'est le cloisonnement par type de charge : un batch lourd ne peut plus ralentir les utilisateurs."
     },
     {
       "id": "bulkhead-cloisonnement:1c148m2",
-      "conceptSlug": "bulkhead-cloisonnement",
-      "explanation": "Le cloisonnement par infrastructure sépare des instances, des files ou des clusters par usage ou par client.",
       "kind": "multiple-choice",
+      "conceptSlug": "bulkhead-cloisonnement",
       "prompt": "Lequel de ces exemples est un cloisonnement par infrastructure ?",
       "choices": [
-        "Un index sur une table très lue",
-        "Un délai d'attente sur chaque requête",
+        "Des clusters séparés pour les gros clients",
         "Un sémaphore par service appelé",
-        "Des clusters séparés pour les gros clients"
+        "Un délai d'attente sur chaque requête",
+        "Un index sur une table très lue"
       ],
-      "answerIndex": 3
+      "answerIndex": 0,
+      "explanation": "Le cloisonnement par infrastructure sépare des instances, des files ou des clusters par usage ou par client."
     },
     {
       "id": "voisin-bruyant-noisy-neighbor:y9dppp",
@@ -685,67 +685,66 @@
     },
     {
       "id": "backpressure-contre-pression:1if6sv8",
-      "conceptSlug": "backpressure-contre-pression",
-      "explanation": "Au lieu d'empiler du travail jusqu'à la panne, le consommateur fait remonter sa saturation au producteur.",
       "kind": "multiple-choice",
+      "conceptSlug": "backpressure-contre-pression",
       "prompt": "Que se passe-t-il avec la contre-pression (backpressure) ?",
       "choices": [
+        "Le producteur envoie plus vite pour vider la file",
         "Le consommateur jette silencieusement les messages en trop",
         "Le consommateur signale qu'il est saturé et le producteur ralentit",
-        "Le producteur envoie plus vite pour vider la file",
         "Le broker duplique les messages vers d'autres consommateurs"
       ],
-      "answerIndex": 1
+      "answerIndex": 2,
+      "explanation": "Au lieu d'empiler du travail jusqu'à la panne, le consommateur fait remonter sa saturation au producteur."
     },
     {
-      "id": "backpressure-contre-pression:3vv0ss",
-      "conceptSlug": "backpressure-contre-pression",
-      "explanation": "C'est le consommateur qui fixe le rythme, par exemple avec request(n) dans Reactive Streams.",
+      "id": "backpressure-contre-pression:10pxqqb",
       "kind": "multiple-choice",
-      "prompt": "Dans un modèle pull, comment le consommateur se protège-t-il de la surcharge ?",
+      "conceptSlug": "backpressure-contre-pression",
+      "prompt": "Avec la contre-pression en modèle pull, comment le consommateur se protège-t-il de la surcharge ?",
       "choices": [
         "Il ne demande que ce qu'il peut traiter",
-        "Il transmet l'excédent à un autre consommateur au hasard",
+        "Il redémarre dès qu'il est saturé",
         "Il accepte tout et traite plus tard",
-        "Il redémarre dès qu'il est saturé"
+        "Il transmet l'excédent à un autre consommateur au hasard"
       ],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "explanation": "C'est le consommateur qui fixe le rythme, par exemple avec request(n) dans Reactive Streams."
     },
     {
-      "id": "backpressure-contre-pression:wm0ovu",
-      "conceptSlug": "backpressure-contre-pression",
-      "explanation": "Une file n'absorbe qu'un écart temporaire, et seulement si elle est bornée. Sinon, elle repousse la panne en consommant toujours plus de mémoire.",
+      "id": "backpressure-contre-pression:1yw0zjs",
       "kind": "true-false",
-      "statement": "Une file non bornée est une bonne façon d'absorber une surcharge durable.",
-      "answer": false
+      "conceptSlug": "backpressure-contre-pression",
+      "statement": "Face à un producteur plus rapide que son consommateur, une file non bornée est une bonne façon d'absorber une surcharge durable.",
+      "answer": false,
+      "explanation": "Une file n'absorbe qu'un écart temporaire, et seulement si elle est bornée. Sinon, elle repousse la panne en consommant toujours plus de mémoire."
     },
     {
       "id": "backpressure-contre-pression:1prclob",
-      "conceptSlug": "backpressure-contre-pression",
-      "explanation": "429 (Too Many Requests) ou 503 signalent qu'on rejette l'excédent, une stratégie aussi appelée load shedding.",
       "kind": "multiple-choice",
+      "conceptSlug": "backpressure-contre-pression",
       "prompt": "Quel code HTTP un service peut-il renvoyer pour refuser l'excédent de requêtes ?",
       "choices": [
         "429",
-        "301",
         "200",
-        "404"
+        "404",
+        "301"
       ],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "explanation": "429 (Too Many Requests) ou 503 signalent qu'on rejette l'excédent, une stratégie aussi appelée load shedding."
     },
     {
       "id": "backpressure-contre-pression:163vejn",
-      "conceptSlug": "backpressure-contre-pression",
-      "explanation": "Avec ralentir le producteur et mettre en tampon, rejeter l'excédent est l'une des trois réponses à la saturation.",
       "kind": "true-false",
+      "conceptSlug": "backpressure-contre-pression",
       "statement": "Rejeter une partie des requêtes peut être une stratégie de contre-pression.",
-      "answer": true
+      "answer": true,
+      "explanation": "Avec ralentir le producteur et mettre en tampon, rejeter l'excédent est l'une des trois réponses à la saturation."
     },
     {
       "id": "cqrs-command-query-responsibility-segregation:dyhxsm",
-      "conceptSlug": "cqrs-command-query-responsibility-segregation",
-      "explanation": "Les commandes modifient l'état, les requêtes le lisent : chacun a son modèle, optimisé pour son usage.",
       "kind": "multiple-choice",
+      "conceptSlug": "cqrs-command-query-responsibility-segregation",
       "prompt": "Que sépare CQRS ?",
       "choices": [
         "Le modèle qui modifie les données et celui qui les lit",
@@ -753,280 +752,282 @@
         "Les données chaudes et les données archivées",
         "Les utilisateurs internes et externes"
       ],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "explanation": "Les commandes modifient l'état, les requêtes le lisent : chacun a son modèle, optimisé pour son usage."
     },
     {
       "id": "cqrs-command-query-responsibility-segregation:xxcc46",
-      "conceptSlug": "cqrs-command-query-responsibility-segregation",
-      "explanation": "Une commande exprime une intention, valide les règles et modifie l'état, sans renvoyer de données métier. La lecture passe par les requêtes.",
       "kind": "true-false",
+      "conceptSlug": "cqrs-command-query-responsibility-segregation",
       "statement": "En CQRS, une commande renvoie les données métier qu'elle vient de modifier.",
-      "answer": false
+      "answer": false,
+      "explanation": "Une commande exprime une intention, valide les règles et modifie l'état, sans renvoyer de données métier. La lecture passe par les requêtes."
     },
     {
       "id": "cqrs-command-query-responsibility-segregation:g40rxz",
-      "conceptSlug": "cqrs-command-query-responsibility-segregation",
-      "explanation": "Le côté lecture n'a pas de règles métier à respecter : il peut lire directement des vues préparées pour l'affichage.",
       "kind": "multiple-choice",
+      "conceptSlug": "cqrs-command-query-responsibility-segregation",
       "prompt": "Comment lit-on souvent les données côté requêtes en CQRS ?",
       "choices": [
-        "En rejouant toutes les commandes",
         "En interrogeant la file de messages",
+        "En SQL direct sur des vues dénormalisées",
         "En passant par les mêmes objets métier que les commandes",
-        "En SQL direct sur des vues dénormalisées"
+        "En rejouant toutes les commandes"
       ],
-      "answerIndex": 3
+      "answerIndex": 1,
+      "explanation": "Le côté lecture n'a pas de règles métier à respecter : il peut lire directement des vues préparées pour l'affichage."
     },
     {
       "id": "cqrs-command-query-responsibility-segregation:ayqzma",
-      "conceptSlug": "cqrs-command-query-responsibility-segregation",
-      "explanation": "Dans la forme simple, il y a une seule base et deux modèles de code. Une base de lecture séparée est une forme avancée.",
       "kind": "true-false",
+      "conceptSlug": "cqrs-command-query-responsibility-segregation",
       "statement": "CQRS impose d'avoir deux bases de données séparées.",
-      "answer": false
+      "answer": false,
+      "explanation": "Dans la forme simple, il y a une seule base et deux modèles de code. Une base de lecture séparée est une forme avancée."
     },
     {
-      "id": "cqrs-command-query-responsibility-segregation:1sva337",
-      "conceptSlug": "cqrs-command-query-responsibility-segregation",
-      "explanation": "La base de lecture est mise à jour après coup : pendant un court instant, elle peut ne pas refléter la dernière commande.",
+      "id": "cqrs-command-query-responsibility-segregation:nk5525",
       "kind": "multiple-choice",
-      "prompt": "Que faut-il accepter quand la lecture a sa propre base mise à jour par des événements ?",
+      "conceptSlug": "cqrs-command-query-responsibility-segregation",
+      "prompt": "En CQRS, que faut-il accepter quand la lecture a sa propre base, mise à jour par des événements ?",
       "choices": [
         "Une cohérence à terme",
         "L'abandon des transactions côté écriture",
         "La perte de certaines commandes",
         "Des lectures plus lentes que l'écriture"
       ],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "explanation": "La base de lecture est mise à jour après coup : pendant un court instant, elle peut ne pas refléter la dernière commande."
     },
     {
       "id": "twelve-factor-app:ueoq9p",
-      "conceptSlug": "twelve-factor-app",
-      "explanation": "La configuration change d'un déploiement à l'autre : elle reste hors du code, dans l'environnement.",
       "kind": "multiple-choice",
+      "conceptSlug": "twelve-factor-app",
       "prompt": "Selon Twelve-Factor App, où doit vivre la configuration d'une application ?",
       "choices": [
+        "Dans un fichier commité avec le code",
         "Dans la base de données de l'application",
-        "Dans les variables d'environnement",
         "En dur dans le code, par environnement",
-        "Dans un fichier commité avec le code"
+        "Dans les variables d'environnement"
       ],
-      "answerIndex": 1
+      "answerIndex": 3,
+      "explanation": "La configuration change d'un déploiement à l'autre : elle reste hors du code, dans l'environnement."
     },
     {
       "id": "twelve-factor-app:f6c178",
-      "conceptSlug": "twelve-factor-app",
-      "explanation": "L'application ne gère pas ses fichiers de logs : elle écrit un flux, et c'est l'environnement qui le collecte.",
       "kind": "multiple-choice",
+      "conceptSlug": "twelve-factor-app",
       "prompt": "Comment une application Twelve-Factor écrit-elle ses logs ?",
       "choices": [
-        "Directement dans une base de données",
-        "Dans des fichiers qu'elle fait tourner elle-même",
         "Sur la sortie standard, comme un flux d'événements",
+        "Dans des fichiers qu'elle fait tourner elle-même",
+        "Directement dans une base de données",
         "Uniquement en cas d'erreur"
       ],
-      "answerIndex": 2
+      "answerIndex": 0,
+      "explanation": "L'application ne gère pas ses fichiers de logs : elle écrit un flux, et c'est l'environnement qui le collecte."
     },
     {
       "id": "twelve-factor-app:1gi68a0",
-      "conceptSlug": "twelve-factor-app",
-      "explanation": "C'est l'inverse : un seul dépôt, et plusieurs déploiements de ce même code.",
       "kind": "true-false",
+      "conceptSlug": "twelve-factor-app",
       "statement": "Twelve-Factor App recommande un dépôt de code par environnement (dev, recette, production).",
-      "answer": false
+      "answer": false,
+      "explanation": "C'est l'inverse : un seul dépôt, et plusieurs déploiements de ce même code."
     },
     {
       "id": "twelve-factor-app:migmit",
-      "conceptSlug": "twelve-factor-app",
-      "explanation": "C'est le facteur Concurrency : on ajoute des processus, ce qui suppose qu'ils soient sans état.",
       "kind": "multiple-choice",
+      "conceptSlug": "twelve-factor-app",
       "prompt": "Comment une application Twelve-Factor passe-t-elle à l'échelle ?",
       "choices": [
-        "En gardant l'état en mémoire pour aller plus vite",
+        "En multipliant les dépôts de code",
         "En donnant plus de mémoire à un seul processus",
-        "En ajoutant des processus",
-        "En multipliant les dépôts de code"
+        "En gardant l'état en mémoire pour aller plus vite",
+        "En ajoutant des processus"
       ],
-      "answerIndex": 2
+      "answerIndex": 3,
+      "explanation": "C'est le facteur Concurrency : on ajoute des processus, ce qui suppose qu'ils soient sans état."
     },
     {
       "id": "twelve-factor-app:sa1mgu",
-      "conceptSlug": "twelve-factor-app",
-      "explanation": "C'est le facteur Processes : rien n'est gardé dans le processus entre deux requêtes, ce qui permet d'en ajouter ou d'en retirer librement.",
       "kind": "true-false",
+      "conceptSlug": "twelve-factor-app",
       "statement": "Dans une application Twelve-Factor, les processus sont sans état.",
-      "answer": true
+      "answer": true,
+      "explanation": "C'est le facteur Processes : rien n'est gardé dans le processus entre deux requêtes, ce qui permet d'en ajouter ou d'en retirer librement."
     },
     {
-      "id": "twelve-factor-app:1uvp4t1",
-      "conceptSlug": "twelve-factor-app",
-      "explanation": "On change de base ou de cache en modifiant la configuration, sans toucher au code.",
+      "id": "twelve-factor-app:jzmhv9",
       "kind": "multiple-choice",
-      "prompt": "Que signifie le facteur « Backing services » ?",
+      "conceptSlug": "twelve-factor-app",
+      "prompt": "Dans Twelve-Factor App, que signifie le facteur « Backing services » ?",
       "choices": [
-        "La base, le cache ou le broker sont des ressources attachées, interchangeables par configuration",
+        "Les services doivent tourner sur la même machine que l'application",
         "L'application embarque sa propre base de données",
         "Chaque service doit avoir une sauvegarde automatique",
-        "Les services doivent tourner sur la même machine que l'application"
+        "La base, le cache ou le broker sont des ressources attachées, interchangeables par configuration"
       ],
-      "answerIndex": 0
+      "answerIndex": 3,
+      "explanation": "On change de base ou de cache en modifiant la configuration, sans toucher au code."
     },
     {
-      "id": "twelve-factor-app:21f9ik",
-      "conceptSlug": "twelve-factor-app",
-      "explanation": "Des processus qui démarrent vite et s'arrêtent proprement se remplacent et se multiplient sans risque.",
+      "id": "twelve-factor-app:dbdb64",
       "kind": "multiple-choice",
-      "prompt": "Que demande le facteur « Disposability » ?",
+      "conceptSlug": "twelve-factor-app",
+      "prompt": "Dans Twelve-Factor App, que demande le facteur « Disposability » ?",
       "choices": [
-        "Des données temporaires effacées chaque nuit",
-        "Des dépendances jetables, réinstallées à chaque appel",
+        "Un démarrage rapide et un arrêt propre",
         "La suppression des environnements de test après usage",
-        "Un démarrage rapide et un arrêt propre"
+        "Des données temporaires effacées chaque nuit",
+        "Des dépendances jetables, réinstallées à chaque appel"
       ],
-      "answerIndex": 3
+      "answerIndex": 0,
+      "explanation": "Des processus qui démarrent vite et s'arrêtent proprement se remplacent et se multiplient sans risque."
     },
     {
-      "id": "twelve-factor-app:16deg83",
-      "conceptSlug": "twelve-factor-app",
-      "explanation": "On construit l'artefact, on l'associe à une configuration pour en faire une release, puis on l'exécute.",
+      "id": "twelve-factor-app:obu85y",
       "kind": "true-false",
-      "statement": "Build, release et run doivent être trois étapes séparées.",
-      "answer": true
+      "conceptSlug": "twelve-factor-app",
+      "statement": "Selon Twelve-Factor App, build, release et run doivent être trois étapes séparées.",
+      "answer": true,
+      "explanation": "On construit l'artefact, on l'associe à une configuration pour en faire une release, puis on l'exécute."
     },
     {
       "id": "architecture-hexagonale-onion-et-clean:1p3mqoq",
-      "conceptSlug": "architecture-hexagonale-onion-et-clean",
-      "explanation": "Ce sont trois variantes d'une même idée : l'infrastructure se branche autour d'un cœur métier indépendant.",
       "kind": "multiple-choice",
+      "conceptSlug": "architecture-hexagonale-onion-et-clean",
       "prompt": "Quelle idée commune partagent les architectures hexagonale, Onion et Clean ?",
       "choices": [
         "Le métier au centre, sans dépendance vers la base ou le framework",
+        "Un service déployé par fonctionnalité",
         "Des données partagées entre tous les modules",
-        "Une couche par technologie, de l'interface à la base",
-        "Un service déployé par fonctionnalité"
+        "Une couche par technologie, de l'interface à la base"
       ],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "explanation": "Ce sont trois variantes d'une même idée : l'infrastructure se branche autour d'un cœur métier indépendant."
     },
     {
       "id": "architecture-hexagonale-onion-et-clean:9kdnm9",
-      "conceptSlug": "architecture-hexagonale-onion-et-clean",
-      "explanation": "Le cœur définit des ports (interfaces), et les adaptateurs les implémentent ou les utilisent.",
       "kind": "multiple-choice",
+      "conceptSlug": "architecture-hexagonale-onion-et-clean",
       "prompt": "Dans l'architecture hexagonale, qu'est-ce qu'un port ?",
       "choices": [
-        "Une classe concrète qui accède à la base",
-        "Un fichier de configuration par environnement",
         "Un numéro de port réseau sur lequel écoute le service",
-        "Une interface exposée par le cœur de l'application"
+        "Une interface exposée par le cœur de l'application",
+        "Un fichier de configuration par environnement",
+        "Une classe concrète qui accède à la base"
       ],
-      "answerIndex": 3
+      "answerIndex": 1,
+      "explanation": "Le cœur définit des ports (interfaces), et les adaptateurs les implémentent ou les utilisent."
     },
     {
       "id": "architecture-hexagonale-onion-et-clean:w3uc8o",
-      "conceptSlug": "architecture-hexagonale-onion-et-clean",
-      "explanation": "Les adaptateurs primaires pilotent l'application (contrôleur REST, CLI, tests). Base, e-mail et API sont des adaptateurs secondaires, pilotés par elle.",
       "kind": "multiple-choice",
+      "conceptSlug": "architecture-hexagonale-onion-et-clean",
       "prompt": "Dans l'architecture hexagonale, lequel de ces éléments est un adaptateur primaire ?",
       "choices": [
         "Un contrôleur REST",
-        "Un client d'API externe",
+        "Un dépôt qui écrit en base",
         "Un client d'envoi d'e-mails",
-        "Un dépôt qui écrit en base"
+        "Un client d'API externe"
       ],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "explanation": "Les adaptateurs primaires pilotent l'application (contrôleur REST, CLI, tests). Base, e-mail et API sont des adaptateurs secondaires, pilotés par elle."
     },
     {
       "id": "architecture-hexagonale-onion-et-clean:zr3zdl",
-      "conceptSlug": "architecture-hexagonale-onion-et-clean",
-      "explanation": "C'est sa règle unique : les cercles extérieurs (frameworks, adaptateurs) dépendent des cercles intérieurs (use cases, entités), jamais l'inverse.",
       "kind": "true-false",
+      "conceptSlug": "architecture-hexagonale-onion-et-clean",
       "statement": "Dans la Clean Architecture, les dépendances pointent vers l'intérieur.",
-      "answer": true
+      "answer": true,
+      "explanation": "C'est sa règle unique : les cercles extérieurs (frameworks, adaptateurs) dépendent des cercles intérieurs (use cases, entités), jamais l'inverse."
     },
     {
-      "id": "architecture-hexagonale-onion-et-clean:t4gmld",
-      "conceptSlug": "architecture-hexagonale-onion-et-clean",
-      "explanation": "C'est l'inverse : le centre définit les interfaces et l'extérieur les implémente. C'est l'inversion des dépendances.",
+      "id": "architecture-hexagonale-onion-et-clean:ag3xgh",
       "kind": "true-false",
-      "statement": "Dans ces architectures, c'est l'infrastructure qui définit les interfaces que le métier doit utiliser.",
-      "answer": false
+      "conceptSlug": "architecture-hexagonale-onion-et-clean",
+      "statement": "Dans les architectures hexagonale, Onion et Clean, c'est l'infrastructure qui définit les interfaces que le métier doit utiliser.",
+      "answer": false,
+      "explanation": "C'est l'inverse : le centre définit les interfaces et l'extérieur les implémente. C'est l'inversion des dépendances."
     },
     {
       "id": "architecture-hexagonale-onion-et-clean:pfhio0",
-      "conceptSlug": "architecture-hexagonale-onion-et-clean",
-      "explanation": "Robert C. Martin a décrit la Clean Architecture en 2012. Cockburn est l'auteur de l'hexagonale, Palermo celui de l'Onion.",
       "kind": "multiple-choice",
+      "conceptSlug": "architecture-hexagonale-onion-et-clean",
       "prompt": "Qui est l'auteur de la Clean Architecture ?",
       "choices": [
+        "Alistair Cockburn",
         "Martin Fowler",
-        "Robert C. Martin",
         "Jeffrey Palermo",
-        "Alistair Cockburn"
+        "Robert C. Martin"
       ],
-      "answerIndex": 1
+      "answerIndex": 3,
+      "explanation": "Robert C. Martin a décrit la Clean Architecture en 2012. Cockburn est l'auteur de l'hexagonale, Palermo celui de l'Onion."
     },
     {
       "id": "file-de-messages-message-queue:e0c7sa",
-      "conceptSlug": "file-de-messages-message-queue",
-      "explanation": "La file sert de tampon : le producteur n'attend pas, et le consommateur traite à son rythme.",
       "kind": "multiple-choice",
+      "conceptSlug": "file-de-messages-message-queue",
       "prompt": "À quoi sert une file de messages entre un producteur et un consommateur ?",
       "choices": [
-        "À garantir que le producteur attend la fin du traitement",
         "À remplacer la base de données de l'application",
         "À chiffrer les échanges entre services",
-        "À traiter le travail en asynchrone, au rythme du consommateur, sans perdre de messages"
+        "À traiter le travail en asynchrone, au rythme du consommateur, sans perdre de messages",
+        "À garantir que le producteur attend la fin du traitement"
       ],
-      "answerIndex": 3
+      "answerIndex": 2,
+      "explanation": "La file sert de tampon : le producteur n'attend pas, et le consommateur traite à son rythme."
     },
     {
-      "id": "file-de-messages-message-queue:1z0g92r",
-      "conceptSlug": "file-de-messages-message-queue",
-      "explanation": "L'acquittement arrive après le traitement. Sans lui, le broker considère que le message n'a pas été traité et le relivre.",
+      "id": "file-de-messages-message-queue:4z7qn8",
       "kind": "true-false",
-      "statement": "Si le consommateur ne confirme pas le traitement d'un message (ack), le message est relivré.",
-      "answer": true
+      "conceptSlug": "file-de-messages-message-queue",
+      "statement": "Dans une file de messages, si le consommateur ne confirme pas le traitement d'un message (ack), le message est relivré.",
+      "answer": true,
+      "explanation": "L'acquittement arrive après le traitement. Sans lui, le broker considère que le message n'a pas été traité et le relivre."
     },
     {
-      "id": "file-de-messages-message-queue:3618cy",
-      "conceptSlug": "file-de-messages-message-queue",
-      "explanation": "Chaque message va à un seul des consommateurs : ajouter des consommateurs augmente le débit.",
+      "id": "file-de-messages-message-queue:1bqsclb",
       "kind": "multiple-choice",
-      "prompt": "Que se passe-t-il quand plusieurs consommateurs lisent la même file ?",
+      "conceptSlug": "file-de-messages-message-queue",
+      "prompt": "Que se passe-t-il quand plusieurs consommateurs lisent la même file de messages ?",
       "choices": [
-        "Les messages sont traités deux fois pour plus de sûreté",
-        "Seul le premier consommateur connecté reçoit des messages",
         "Ils se partagent le travail (competing consumers)",
-        "Chacun reçoit une copie de chaque message"
+        "Chacun reçoit une copie de chaque message",
+        "Seul le premier consommateur connecté reçoit des messages",
+        "Les messages sont traités deux fois pour plus de sûreté"
       ],
-      "answerIndex": 2
+      "answerIndex": 0,
+      "explanation": "Chaque message va à un seul des consommateurs : ajouter des consommateurs augmente le débit."
     },
     {
-      "id": "file-de-messages-message-queue:146wwr5",
-      "conceptSlug": "file-de-messages-message-queue",
-      "explanation": "Le broker conserve le message de façon durable jusqu'à ce qu'un consommateur l'ait traité et acquitté.",
+      "id": "file-de-messages-message-queue:wi6o7s",
       "kind": "true-false",
-      "statement": "Le broker supprime le message dès que le producteur l'a publié.",
-      "answer": false
+      "conceptSlug": "file-de-messages-message-queue",
+      "statement": "Dans une file de messages, le broker supprime le message dès que le producteur l'a publié.",
+      "answer": false,
+      "explanation": "Le broker conserve le message de façon durable jusqu'à ce qu'un consommateur l'ait traité et acquitté."
     },
     {
       "id": "file-de-messages-message-queue:p5pb47",
-      "conceptSlug": "file-de-messages-message-queue",
-      "explanation": "La DLQ met ces messages de côté pour qu'ils ne bloquent pas la file principale.",
       "kind": "multiple-choice",
+      "conceptSlug": "file-de-messages-message-queue",
       "prompt": "Où vont les messages qu'aucun consommateur n'arrive à traiter après plusieurs tentatives ?",
       "choices": [
         "Dans une Dead Letter Queue",
+        "Dans une projection",
         "Dans un ADR",
-        "Dans un snapshot",
-        "Dans une projection"
+        "Dans un snapshot"
       ],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "explanation": "La DLQ met ces messages de côté pour qu'ils ne bloquent pas la file principale."
     },
     {
       "id": "loi-de-conway-conway-s-law:1e2gqwx",
-      "kind": "multiple-choice",
       "conceptSlug": "loi-de-conway-conway-s-law",
+      "explanation": "L'architecture d'un système finit par ressembler à l'organigramme des équipes qui le construisent.",
+      "kind": "multiple-choice",
       "prompt": "Que dit la loi de Conway ?",
       "choices": [
         "Chaque service doit avoir sa propre base de données",
@@ -1034,13 +1035,13 @@
         "Un système finit par reproduire la structure de communication de l'organisation qui le construit",
         "Le nombre de bugs double à chaque fois qu'on ajoute une équipe"
       ],
-      "answerIndex": 2,
-      "explanation": "L'architecture d'un système finit par ressembler à l'organigramme des équipes qui le construisent."
+      "answerIndex": 2
     },
     {
       "id": "loi-de-conway-conway-s-law:1k5ce0g",
-      "kind": "multiple-choice",
       "conceptSlug": "loi-de-conway-conway-s-law",
+      "explanation": "Le système reproduit l'organisation : trois équipes par technologie donnent trois couches techniques.",
+      "kind": "multiple-choice",
       "prompt": "Une entreprise a une équipe front, une équipe back et une équipe base de données. Quelle architecture obtient-elle le plus souvent ?",
       "choices": [
         "Un monolithe modulaire découpé par Bounded Context",
@@ -1048,21 +1049,21 @@
         "Une architecture hexagonale avec le métier au centre",
         "Des microservices découpés par domaine métier"
       ],
-      "answerIndex": 1,
-      "explanation": "Le système reproduit l'organisation : trois équipes par technologie donnent trois couches techniques."
+      "answerIndex": 1
     },
     {
       "id": "loi-de-conway-conway-s-law:1ejhvrw",
-      "kind": "true-false",
       "conceptSlug": "loi-de-conway-conway-s-law",
+      "explanation": "Un tel changement tient mal : le code revient peu à peu à la forme de l'organigramme.",
+      "kind": "true-false",
       "statement": "D'après la loi de Conway, on peut changer durablement l'architecture d'un système sans toucher à l'organisation des équipes.",
-      "answer": false,
-      "explanation": "Un tel changement tient mal : le code revient peu à peu à la forme de l'organigramme."
+      "answer": false
     },
     {
       "id": "loi-de-conway-conway-s-law:16qpgqx",
-      "kind": "multiple-choice",
       "conceptSlug": "loi-de-conway-conway-s-law",
+      "explanation": "On utilise la loi à son avantage : des équipes de bout en bout, une par domaine métier, produisent une architecture découpée par domaine.",
+      "kind": "multiple-choice",
       "prompt": "En quoi consiste la « manœuvre inverse de Conway » ?",
       "choices": [
         "Regrouper toutes les équipes en une seule pour éviter les frontières",
@@ -1070,8 +1071,7 @@
         "Laisser chaque équipe choisir librement son architecture",
         "Réorganiser les équipes par technologie pour gagner en expertise"
       ],
-      "answerIndex": 1,
-      "explanation": "On utilise la loi à son avantage : des équipes de bout en bout, une par domaine métier, produisent une architecture découpée par domaine."
+      "answerIndex": 1
     },
     {
       "id": "architecture-n-tier-en-couches:te4yxc",
@@ -1080,9 +1080,9 @@
       "prompt": "Dans une architecture en couches classique, quelles sont les trois couches ?",
       "choices": [
         "Présentation, métier, données",
+        "Commandes, requêtes, événements",
         "Build, release, run",
-        "Ports, adaptateurs, domaine",
-        "Commandes, requêtes, événements"
+        "Ports, adaptateurs, domaine"
       ],
       "answerIndex": 0,
       "explanation": "La présentation (interface, API), le métier (règles, cas d'usage) et les données (base, ORM) sont empilés dans cet ordre."
@@ -1096,31 +1096,31 @@
       "explanation": "Les couches sont empilées : la présentation appelle le métier, qui appelle les données."
     },
     {
-      "id": "architecture-n-tier-en-couches:8id3ij",
+      "id": "architecture-n-tier-en-couches:bflda1",
       "kind": "multiple-choice",
       "conceptSlug": "architecture-n-tier-en-couches",
-      "prompt": "Dans quelle couche trouve-t-on les repositories et l'ORM ?",
+      "prompt": "Dans une architecture en couches, dans quelle couche trouve-t-on les repositories et l'ORM ?",
       "choices": [
         "La couche présentation",
-        "La couche données",
         "La couche métier",
+        "La couche données",
         "Aucune, ils sont à part"
       ],
-      "answerIndex": 1,
+      "answerIndex": 2,
       "explanation": "Tout ce qui accède à la base relève de la couche données."
     },
     {
-      "id": "architecture-n-tier-en-couches:1m476hm",
+      "id": "architecture-n-tier-en-couches:5jq044",
       "kind": "multiple-choice",
       "conceptSlug": "architecture-n-tier-en-couches",
-      "prompt": "Quel est l'inconvénient d'une couche « ouverte », qu'on peut sauter ?",
+      "prompt": "Dans une architecture en couches, quel est l'inconvénient d'une couche « ouverte », qu'on peut sauter ?",
       "choices": [
+        "Elle crée du couplage entre des couches qui ne devraient pas se connaître",
         "Elle impose une base de données par couche",
         "Elle empêche de tester la couche métier",
-        "Elle oblige à écrire plus de code",
-        "Elle crée du couplage entre des couches qui ne devraient pas se connaître"
+        "Elle oblige à écrire plus de code"
       ],
-      "answerIndex": 3,
+      "answerIndex": 0,
       "explanation": "Sauter une couche économise du code, mais la présentation se met alors à dépendre directement des données."
     },
     {
@@ -1133,8 +1133,9 @@
     },
     {
       "id": "backoff-exponentiel-et-jitter:1d60iui",
-      "kind": "multiple-choice",
       "conceptSlug": "backoff-exponentiel-et-jitter",
+      "explanation": "Réessayer en rafale ajoute de la charge à un service qui peine déjà. Espacer les tentatives lui laisse le temps de récupérer.",
+      "kind": "multiple-choice",
       "prompt": "Pourquoi espacer de plus en plus les nouvelles tentatives d'un appel en échec ?",
       "choices": [
         "Pour ne pas achever un service déjà en difficulté",
@@ -1142,13 +1143,13 @@
         "Pour que l'utilisateur attende moins longtemps",
         "Pour garantir qu'un appel finit toujours par réussir"
       ],
-      "answerIndex": 0,
-      "explanation": "Réessayer en rafale ajoute de la charge à un service qui peine déjà. Espacer les tentatives lui laisse le temps de récupérer."
+      "answerIndex": 0
     },
     {
       "id": "backoff-exponentiel-et-jitter:rlut8q",
-      "kind": "multiple-choice",
       "conceptSlug": "backoff-exponentiel-et-jitter",
+      "explanation": "Le délai vaut base × 2^tentative, avec un plafond (par exemple 20 secondes).",
+      "kind": "multiple-choice",
       "prompt": "Avec un backoff exponentiel, comment le délai évolue-t-il entre deux tentatives ?",
       "choices": [
         "Il diminue pour réessayer de plus en plus vite",
@@ -1156,13 +1157,13 @@
         "Il double à chaque tentative, jusqu'à un plafond",
         "Il reste fixe, par exemple une seconde"
       ],
-      "answerIndex": 2,
-      "explanation": "Le délai vaut base × 2^tentative, avec un plafond (par exemple 20 secondes)."
+      "answerIndex": 2
     },
     {
       "id": "backoff-exponentiel-et-jitter:q7cji2",
-      "kind": "multiple-choice",
       "conceptSlug": "backoff-exponentiel-et-jitter",
+      "explanation": "Sans hasard, des clients qui échouent ensemble réessaient ensemble. Le jitter les désynchronise.",
+      "kind": "multiple-choice",
       "prompt": "À quoi sert le jitter dans une stratégie de retry ?",
       "choices": [
         "À tirer le délai au hasard pour que les clients ne réessaient pas tous en même temps",
@@ -1170,29 +1171,29 @@
         "À annuler les tentatives qui prennent trop de temps",
         "À choisir aléatoirement le serveur à rappeler"
       ],
-      "answerIndex": 0,
-      "explanation": "Sans hasard, des clients qui échouent ensemble réessaient ensemble. Le jitter les désynchronise."
+      "answerIndex": 0
     },
     {
       "id": "backoff-exponentiel-et-jitter:vpsgx8",
-      "kind": "true-false",
       "conceptSlug": "backoff-exponentiel-et-jitter",
+      "explanation": "Une erreur 400 vient de la requête elle-même : elle échouera aussi au deuxième essai. On ne réessaie que les erreurs passagères.",
+      "kind": "true-false",
       "statement": "Il est utile de réessayer une requête qui a échoué avec une erreur 400.",
-      "answer": false,
-      "explanation": "Une erreur 400 vient de la requête elle-même : elle échouera aussi au deuxième essai. On ne réessaie que les erreurs passagères."
+      "answer": false
     },
     {
       "id": "backoff-exponentiel-et-jitter:1mo6ovs",
-      "kind": "true-false",
       "conceptSlug": "backoff-exponentiel-et-jitter",
+      "explanation": "Une opération non idempotente rejouée peut produire son effet deux fois, comme un double paiement.",
+      "kind": "true-false",
       "statement": "On ne devrait réessayer automatiquement que des opérations idempotentes.",
-      "answer": true,
-      "explanation": "Une opération non idempotente rejouée peut produire son effet deux fois, comme un double paiement."
+      "answer": true
     },
     {
       "id": "backoff-exponentiel-et-jitter:1gto46f",
-      "kind": "multiple-choice",
       "conceptSlug": "backoff-exponentiel-et-jitter",
+      "explanation": "Le full jitter tire le délai au hasard sur tout l'intervalle, ce qui étale au maximum les tentatives.",
+      "kind": "multiple-choice",
       "prompt": "En full jitter, combien de temps attend-on avant une nouvelle tentative ?",
       "choices": [
         "Toujours le plafond maximal",
@@ -1200,13 +1201,13 @@
         "Exactement le délai calculé",
         "Le délai calculé plus une seconde fixe"
       ],
-      "answerIndex": 1,
-      "explanation": "Le full jitter tire le délai au hasard sur tout l'intervalle, ce qui étale au maximum les tentatives."
+      "answerIndex": 1
     },
     {
       "id": "microservices:1f3oveu",
-      "kind": "multiple-choice",
       "conceptSlug": "microservices",
+      "explanation": "Chaque service porte une capacité métier complète, pas une couche technique.",
+      "kind": "multiple-choice",
       "prompt": "Selon quoi découpe-t-on une application en microservices ?",
       "choices": [
         "Par couche technique (contrôleurs, services, base)",
@@ -1214,21 +1215,21 @@
         "Par nombre de lignes de code",
         "Par langage de programmation"
       ],
-      "answerIndex": 1,
-      "explanation": "Chaque service porte une capacité métier complète, pas une couche technique."
+      "answerIndex": 1
     },
     {
       "id": "microservices:ednltp",
-      "kind": "true-false",
       "conceptSlug": "microservices",
+      "explanation": "Chaque service a sa base. Les autres passent par son API ou ses événements.",
+      "kind": "true-false",
       "statement": "Dans une architecture microservices, plusieurs services peuvent lire directement la même base de données.",
-      "answer": false,
-      "explanation": "Chaque service a sa base. Les autres passent par son API ou ses événements."
+      "answer": false
     },
     {
       "id": "microservices:62n64t",
-      "kind": "multiple-choice",
       "conceptSlug": "microservices",
+      "explanation": "L'équipe propriétaire est responsable du service de bout en bout, de la conception à l'exploitation.",
+      "kind": "multiple-choice",
       "prompt": "Que signifie « you build it, you run it » pour une équipe microservices ?",
       "choices": [
         "Chaque développeur déploie son code sans revue",
@@ -1236,21 +1237,21 @@
         "L'équipe qui construit le service le fait aussi tourner en production",
         "Une équipe d'exploitation séparée gère tous les services"
       ],
-      "answerIndex": 2,
-      "explanation": "L'équipe propriétaire est responsable du service de bout en bout, de la conception à l'exploitation."
+      "answerIndex": 2
     },
     {
       "id": "microservices:14ii6dw",
-      "kind": "true-false",
       "conceptSlug": "microservices",
+      "explanation": "Le déploiement indépendant est l'un des intérêts principaux du découpage : chaque service a sa cadence.",
+      "kind": "true-false",
       "statement": "Chaque microservice a son propre pipeline et peut être déployé sans redéployer les autres.",
-      "answer": true,
-      "explanation": "Le déploiement indépendant est l'un des intérêts principaux du découpage : chaque service a sa cadence."
+      "answer": true
     },
     {
       "id": "microservices:17bk773",
-      "kind": "multiple-choice",
       "conceptSlug": "microservices",
+      "explanation": "Avec des événements ou des files, l'émetteur n'attend pas la réponse. HTTP et gRPC sont synchrones.",
+      "kind": "multiple-choice",
       "prompt": "Lequel de ces modes de communication entre microservices est asynchrone ?",
       "choices": [
         "Un appel gRPC",
@@ -1258,13 +1259,13 @@
         "Des événements publiés dans une file",
         "Une requête REST"
       ],
-      "answerIndex": 2,
-      "explanation": "Avec des événements ou des files, l'émetteur n'attend pas la réponse. HTTP et gRPC sont synchrones."
+      "answerIndex": 2
     },
     {
       "id": "microservices:18stwf9",
-      "kind": "multiple-choice",
       "conceptSlug": "microservices",
+      "explanation": "Le circuit breaker fait échouer vite les appels vers une dépendance en panne, pour éviter l'effet domino.",
+      "kind": "multiple-choice",
       "prompt": "Quel pattern protège un microservice d'une dépendance en panne en coupant les appels vers elle ?",
       "choices": [
         "Le Strangler Fig",
@@ -1272,8 +1273,7 @@
         "Le circuit breaker",
         "La règle du boy-scout"
       ],
-      "answerIndex": 2,
-      "explanation": "Le circuit breaker fait échouer vite les appels vers une dépendance en panne, pour éviter l'effet domino."
+      "answerIndex": 2
     },
     {
       "id": "etl-elt-extract-transform-load-extract-load-transform:1dbzfa7",
@@ -1281,12 +1281,12 @@
       "conceptSlug": "etl-elt-extract-transform-load-extract-load-transform",
       "prompt": "Quelle est la différence entre ETL et ELT ?",
       "choices": [
-        "ETL lit une seule source, ELT plusieurs",
+        "ETL écrit dans un data lake, ELT dans une base relationnelle",
         "ETL est en temps réel, ELT se fait la nuit",
-        "ETL transforme avant de charger, ELT charge brut puis transforme dans l'entrepôt",
-        "ETL écrit dans un data lake, ELT dans une base relationnelle"
+        "ETL lit une seule source, ELT plusieurs",
+        "ETL transforme avant de charger, ELT charge brut puis transforme dans l'entrepôt"
       ],
-      "answerIndex": 2,
+      "answerIndex": 3,
       "explanation": "Les deux alimentent un entrepôt de données : seule la place de l'étape de transformation change."
     },
     {
@@ -1295,27 +1295,27 @@
       "conceptSlug": "etl-elt-extract-transform-load-extract-load-transform",
       "prompt": "Qu'est-ce que le CDC dans l'étape d'extraction ?",
       "choices": [
+        "Une copie complète de la base chaque nuit",
         "Un format de fichier compressé",
-        "La capture des changements dans le journal de la base",
         "Un contrôle de cohérence des données",
-        "Une copie complète de la base chaque nuit"
+        "La capture des changements dans le journal de la base"
       ],
-      "answerIndex": 1,
+      "answerIndex": 3,
       "explanation": "Le Change Data Capture lit le journal de la base pour ne récupérer que ce qui a changé : c'est une extraction incrémentale."
     },
     {
-      "id": "etl-elt-extract-transform-load-extract-load-transform:13hwa5c",
+      "id": "etl-elt-extract-transform-load-extract-load-transform:pmnzjc",
       "kind": "true-false",
       "conceptSlug": "etl-elt-extract-transform-load-extract-load-transform",
-      "statement": "Dédoublonner et appliquer les règles métier font partie de l'étape Transform.",
+      "statement": "Dans un pipeline ETL, dédoublonner et appliquer les règles métier font partie de l'étape Transform.",
       "answer": true,
       "explanation": "La transformation nettoie, dédoublonne, type, joint, agrège et applique les règles métier."
     },
     {
-      "id": "etl-elt-extract-transform-load-extract-load-transform:gfli26",
+      "id": "etl-elt-extract-transform-load-extract-load-transform:x0h6me",
       "kind": "true-false",
       "conceptSlug": "etl-elt-extract-transform-load-extract-load-transform",
-      "statement": "L'étape Load écrit les données dans les systèmes sources.",
+      "statement": "Dans un pipeline ETL, l'étape Load écrit les données dans les systèmes sources.",
       "answer": false,
       "explanation": "Load écrit dans l'entrepôt (data warehouse) ou le lac de données (data lake), pas dans les sources."
     },
@@ -1325,12 +1325,12 @@
       "conceptSlug": "circuit-breaker-disjoncteur",
       "prompt": "À quoi sert un circuit breaker ?",
       "choices": [
-        "À répartir les appels entre plusieurs instances",
-        "À mettre en file les appels en trop",
         "À couper les appels vers une dépendance en panne pour échouer vite et éviter l'effet domino",
-        "À relancer automatiquement les appels qui ont échoué"
+        "À relancer automatiquement les appels qui ont échoué",
+        "À répartir les appels entre plusieurs instances",
+        "À mettre en file les appels en trop"
       ],
-      "answerIndex": 2,
+      "answerIndex": 0,
       "explanation": "En coupant les appels, il évite d'attendre une dépendance morte et lui laisse le temps de récupérer."
     },
     {
@@ -1340,8 +1340,8 @@
       "prompt": "Que se passe-t-il quand le circuit breaker est ouvert ?",
       "choices": [
         "Tout appel échoue immédiatement ou renvoie un repli",
-        "Quelques appels de test passent",
         "Les appels passent normalement",
+        "Quelques appels de test passent",
         "Les appels sont mis en attente jusqu'au retour du service"
       ],
       "answerIndex": 0,
@@ -1356,17 +1356,17 @@
       "explanation": "Fermé, comme un circuit électrique, il laisse passer les appels et mesure le taux d'échecs et d'appels lents."
     },
     {
-      "id": "circuit-breaker-disjoncteur:1wyop9",
+      "id": "circuit-breaker-disjoncteur:15ta2u1",
       "kind": "multiple-choice",
       "conceptSlug": "circuit-breaker-disjoncteur",
-      "prompt": "Que se passe-t-il à l'état semi-ouvert si les appels de test réussissent ?",
+      "prompt": "Un circuit breaker est à l'état semi-ouvert et ses appels de test réussissent. Que se passe-t-il ?",
       "choices": [
-        "Il reste semi-ouvert indéfiniment",
         "Le disjoncteur repasse à l'état fermé",
+        "Il redémarre le service appelé",
         "Il repasse à l'état ouvert",
-        "Il redémarre le service appelé"
+        "Il reste semi-ouvert indéfiniment"
       ],
-      "answerIndex": 1,
+      "answerIndex": 0,
       "explanation": "Après un délai, quelques appels de test passent : s'ils réussissent, on revient à fermé, sinon on repasse à ouvert."
     },
     {
@@ -1383,12 +1383,12 @@
       "conceptSlug": "solid",
       "prompt": "Quel est l'objectif commun des cinq principes SOLID ?",
       "choices": [
-        "Écrire le moins de classes possible",
         "Rendre le code plus rapide à l'exécution",
         "Remplacer les tests par une bonne conception",
-        "Qu'un changement de besoin touche peu de code, et que ce code reste testable"
+        "Qu'un changement de besoin touche peu de code, et que ce code reste testable",
+        "Écrire le moins de classes possible"
       ],
-      "answerIndex": 3,
+      "answerIndex": 2,
       "explanation": "SOLID vise un code qui résiste aux changements : peu d'endroits à modifier, et faciles à tester."
     },
     {
@@ -1398,9 +1398,9 @@
       "prompt": "Que demande vraiment le principe de responsabilité unique (S) ?",
       "choices": [
         "Qu'un module n'ait qu'une raison de changer, parce qu'il ne répond qu'à un seul acteur",
+        "Qu'un fichier ne fasse qu'une seule chose technique",
         "Qu'un module ne soit modifié que par une seule personne",
-        "Qu'une classe ne contienne qu'une seule méthode",
-        "Qu'un fichier ne fasse qu'une seule chose technique"
+        "Qu'une classe ne contienne qu'une seule méthode"
       ],
       "answerIndex": 0,
       "explanation": "On le confond souvent avec « une classe ne fait qu'une chose ». Il s'agit plutôt de ne servir qu'un seul acteur : le métier, la compta ou l'exploitation."
@@ -1414,17 +1414,17 @@
       "explanation": "Le principe demande d'ajouter du nouveau code plutôt que de modifier l'existant : le nouveau moyen de paiement devient une nouvelle classe."
     },
     {
-      "id": "solid:1f9t26p",
+      "id": "solid:5253ze",
       "kind": "multiple-choice",
       "conceptSlug": "solid",
-      "prompt": "Une classe hérite d'une méthode et la redéfinit pour lever une erreur « non supporté ». Quel principe est violé ?",
+      "prompt": "Une classe hérite d'une méthode et la redéfinit pour lever une erreur « non supporté ». Quel principe SOLID est violé ?",
       "choices": [
+        "La substitution de Liskov",
         "La ségrégation des interfaces",
         "La responsabilité unique",
-        "La substitution de Liskov",
         "L'inversion des dépendances"
       ],
-      "answerIndex": 2,
+      "answerIndex": 0,
       "explanation": "Un sous-type doit pouvoir remplacer son parent sans surprendre l'appelant. Une méthode qui refuse de fonctionner le surprend."
     },
     {
@@ -1441,12 +1441,12 @@
       "conceptSlug": "solid",
       "prompt": "Dans le principe d'inversion des dépendances, qu'est-ce qui implémente les abstractions définies par le métier ?",
       "choices": [
-        "Le code métier lui-même",
         "Les tests unitaires",
         "Le contrôleur REST",
-        "Les détails techniques (base, API, Kafka)"
+        "Les détails techniques (base, API, Kafka)",
+        "Le code métier lui-même"
       ],
-      "answerIndex": 3,
+      "answerIndex": 2,
       "explanation": "Le métier définit les abstractions dont il a besoin, et les détails techniques les implémentent."
     },
     {
@@ -1459,8 +1459,9 @@
     },
     {
       "id": "acid-atomicite-coherence-isolation-durabilite:b9du7p",
-      "kind": "multiple-choice",
       "conceptSlug": "acid-atomicite-coherence-isolation-durabilite",
+      "explanation": "Au moindre échec, ROLLBACK annule tout ce que la transaction a écrit.",
+      "kind": "multiple-choice",
       "prompt": "Quelle propriété ACID garantit qu'une transaction s'applique entièrement ou pas du tout ?",
       "choices": [
         "L'isolation",
@@ -1468,13 +1469,13 @@
         "L'atomicité",
         "La cohérence"
       ],
-      "answerIndex": 2,
-      "explanation": "Au moindre échec, ROLLBACK annule tout ce que la transaction a écrit."
+      "answerIndex": 2
     },
     {
       "id": "acid-atomicite-coherence-isolation-durabilite:7ha7f6",
-      "kind": "multiple-choice",
       "conceptSlug": "acid-atomicite-coherence-isolation-durabilite",
+      "explanation": "Une fois le COMMIT confirmé, la donnée est sur disque. PostgreSQL l'écrit d'abord dans son journal (WAL).",
+      "kind": "multiple-choice",
       "prompt": "Quelle propriété ACID garantit qu'une donnée confirmée par COMMIT survit à un crash ?",
       "choices": [
         "L'isolation",
@@ -1482,21 +1483,21 @@
         "L'atomicité",
         "La cohérence"
       ],
-      "answerIndex": 1,
-      "explanation": "Une fois le COMMIT confirmé, la donnée est sur disque. PostgreSQL l'écrit d'abord dans son journal (WAL)."
+      "answerIndex": 1
     },
     {
       "id": "acid-atomicite-coherence-isolation-durabilite:xt341d",
-      "kind": "true-false",
       "conceptSlug": "acid-atomicite-coherence-isolation-durabilite",
+      "explanation": "La base fait respecter ses contraintes (UNIQUE, CHECK, clés étrangères). Les autres règles métier restent à la charge du code.",
+      "kind": "true-false",
       "statement": "La base de données fait respecter à elle seule toutes les règles métier, grâce à la propriété de cohérence.",
-      "answer": false,
-      "explanation": "La base fait respecter ses contraintes (UNIQUE, CHECK, clés étrangères). Les autres règles métier restent à la charge du code."
+      "answer": false
     },
     {
       "id": "acid-atomicite-coherence-isolation-durabilite:tiiuqj",
-      "kind": "multiple-choice",
       "conceptSlug": "acid-atomicite-coherence-isolation-durabilite",
+      "explanation": "SERIALIZABLE est le niveau le plus strict. Les autres vont plus vite mais tolèrent des anomalies.",
+      "kind": "multiple-choice",
       "prompt": "Quel niveau d'isolation donne le même résultat qu'une exécution des transactions l'une après l'autre ?",
       "choices": [
         "REPEATABLE READ",
@@ -1504,21 +1505,21 @@
         "READ UNCOMMITTED",
         "READ COMMITTED"
       ],
-      "answerIndex": 1,
-      "explanation": "SERIALIZABLE est le niveau le plus strict. Les autres vont plus vite mais tolèrent des anomalies."
+      "answerIndex": 1
     },
     {
       "id": "acid-atomicite-coherence-isolation-durabilite:p2gx1b",
-      "kind": "true-false",
       "conceptSlug": "acid-atomicite-coherence-isolation-durabilite",
+      "explanation": "Ils sont plus rapides que SERIALIZABLE, en échange de certaines anomalies entre transactions simultanées.",
+      "kind": "true-false",
       "statement": "Les niveaux READ COMMITTED et REPEATABLE READ peuvent laisser passer des anomalies comme la mise à jour perdue ou le write skew.",
-      "answer": true,
-      "explanation": "Ils sont plus rapides que SERIALIZABLE, en échange de certaines anomalies entre transactions simultanées."
+      "answer": true
     },
     {
       "id": "acid-atomicite-coherence-isolation-durabilite:zztofg",
-      "kind": "multiple-choice",
       "conceptSlug": "acid-atomicite-coherence-isolation-durabilite",
+      "explanation": "Le Write-Ahead Log est écrit sur disque avant de confirmer le COMMIT : après un crash, PostgreSQL le rejoue.",
+      "kind": "multiple-choice",
       "prompt": "Que fait PostgreSQL pour garantir la durabilité d'une transaction ?",
       "choices": [
         "Il écrit d'abord la modification dans son journal (WAL) sur disque",
@@ -1526,8 +1527,7 @@
         "Il verrouille toute la table jusqu'à la fin de la journée",
         "Il duplique la modification sur un autre serveur avant de répondre"
       ],
-      "answerIndex": 0,
-      "explanation": "Le Write-Ahead Log est écrit sur disque avant de confirmer le COMMIT : après un crash, PostgreSQL le rejoue."
+      "answerIndex": 0
     },
     {
       "id": "regle-du-boy-scout-boy-scout-rule:4al4xm",
@@ -1535,12 +1535,12 @@
       "conceptSlug": "regle-du-boy-scout-boy-scout-rule",
       "prompt": "Que demande la règle du boy-scout ?",
       "choices": [
-        "Planifier un sprint de nettoyage tous les trimestres",
-        "Réécrire entièrement un module dès qu'il paraît sale",
         "Laisser le code un peu plus propre qu'on ne l'a trouvé, à chaque passage",
+        "Réécrire entièrement un module dès qu'il paraît sale",
+        "Planifier un sprint de nettoyage tous les trimestres",
         "Ne jamais toucher au code qui fonctionne"
       ],
-      "answerIndex": 2,
+      "answerIndex": 0,
       "explanation": "De petites améliorations à chaque passage finissent par garder le code sain, sans grand chantier."
     },
     {
@@ -1557,40 +1557,41 @@
       "conceptSlug": "regle-du-boy-scout-boy-scout-rule",
       "prompt": "Quel genre d'amélioration la règle du boy-scout vise-t-elle ?",
       "choices": [
-        "Des refontes complètes du module concerné",
         "Des optimisations de performance mesurées",
         "L'ajout de fonctionnalités demandées en passant",
-        "Des améliorations de quelques minutes, qui ne changent pas le comportement"
+        "Des améliorations de quelques minutes, qui ne changent pas le comportement",
+        "Des refontes complètes du module concerné"
       ],
-      "answerIndex": 3,
+      "answerIndex": 2,
       "explanation": "On reste sur de petits gestes : renommer, extraire, simplifier, sans modifier ce que fait le code."
     },
     {
-      "id": "regle-du-boy-scout-boy-scout-rule:qlsdub",
+      "id": "regle-du-boy-scout-boy-scout-rule:bou9cb",
       "kind": "multiple-choice",
       "conceptSlug": "regle-du-boy-scout-boy-scout-rule",
-      "prompt": "Sans tests sur le code qu'on touche, que peut-on faire en sécurité ?",
+      "prompt": "Pour appliquer la règle du boy-scout sur du code sans tests, que peut-on faire en sécurité ?",
       "choices": [
-        "Rien du tout : il faut attendre qu'un test existe",
         "Se limiter aux refactorings automatiques de l'IDE, ou écrire d'abord un test",
+        "Rien du tout : il faut attendre qu'un test existe",
         "Réécrire le code en entier pour repartir sur une base saine",
         "Nettoyer à la main en relisant attentivement"
       ],
-      "answerIndex": 1,
+      "answerIndex": 0,
       "explanation": "Les refactorings automatiques (renommer, extraire) sont sûrs. Pour le reste, il faut un filet de sécurité : un test."
     },
     {
-      "id": "regle-du-boy-scout-boy-scout-rule:msk5z0",
+      "id": "regle-du-boy-scout-boy-scout-rule:9p3mk8",
       "kind": "true-false",
       "conceptSlug": "regle-du-boy-scout-boy-scout-rule",
-      "statement": "Idéalement, le nettoyage fait en passant va dans un commit séparé du changement fonctionnel.",
+      "statement": "Avec la règle du boy-scout, le nettoyage fait en passant va idéalement dans un commit séparé du changement fonctionnel.",
       "answer": true,
       "explanation": "Un commit à part permet à la revue de distinguer le nettoyage du vrai changement."
     },
     {
       "id": "kiss-keep-it-simple-stupid:1uxkddz",
-      "kind": "multiple-choice",
       "conceptSlug": "kiss-keep-it-simple-stupid",
+      "explanation": "Un code simple est plus facile à lire et à modifier. La concision qui rend le code obscur ne compte pas comme simple.",
+      "kind": "multiple-choice",
       "prompt": "Que recommande le principe KISS ?",
       "choices": [
         "Choisir la solution la plus simple qui résout le problème",
@@ -1598,21 +1599,21 @@
         "Écrire le code le plus court possible, quitte à le rendre obscur",
         "Prévoir dès le départ tous les cas qui pourraient arriver"
       ],
-      "answerIndex": 0,
-      "explanation": "Un code simple est plus facile à lire et à modifier. La concision qui rend le code obscur ne compte pas comme simple."
+      "answerIndex": 0
     },
     {
       "id": "kiss-keep-it-simple-stupid:15rt2c1",
-      "kind": "true-false",
       "conceptSlug": "kiss-keep-it-simple-stupid",
+      "explanation": "C'est le but même du principe : un code facile à lire et à faire évoluer.",
+      "kind": "true-false",
       "statement": "Selon KISS, une solution simple est aussi une solution facile à lire et à modifier.",
-      "answer": true,
-      "explanation": "C'est le but même du principe : un code facile à lire et à faire évoluer."
+      "answer": true
     },
     {
       "id": "kiss-keep-it-simple-stupid:qb575y",
-      "kind": "multiple-choice",
       "conceptSlug": "kiss-keep-it-simple-stupid",
+      "explanation": "YAGNI retire ce qui n'est pas encore nécessaire. KISS simplifie ce qui reste.",
+      "kind": "multiple-choice",
       "prompt": "Quel principe, proche de KISS, dit de ne coder une fonctionnalité qu'au moment où elle devient nécessaire ?",
       "choices": [
         "YAGNI",
@@ -1620,8 +1621,7 @@
         "ACID",
         "SOLID"
       ],
-      "answerIndex": 0,
-      "explanation": "YAGNI retire ce qui n'est pas encore nécessaire. KISS simplifie ce qui reste."
+      "answerIndex": 0
     },
     {
       "id": "yagni-you-aren-t-gonna-need-it:1kxnflj",
@@ -1629,12 +1629,12 @@
       "conceptSlug": "yagni-you-aren-t-gonna-need-it",
       "prompt": "Que dit le principe YAGNI ?",
       "choices": [
-        "Prévoir des points d'extension pour les besoins futurs",
-        "Toujours écrire le test avant le code",
+        "Ne coder une fonctionnalité qu'au moment où elle devient nécessaire",
         "Ne jamais dupliquer une règle métier",
-        "Ne coder une fonctionnalité qu'au moment où elle devient nécessaire"
+        "Toujours écrire le test avant le code",
+        "Prévoir des points d'extension pour les besoins futurs"
       ],
-      "answerIndex": 3,
+      "answerIndex": 0,
       "explanation": "On ne code rien par anticipation : on attend que le besoin soit réel."
     },
     {
@@ -1646,17 +1646,17 @@
       "explanation": "Elle coûte du temps de construction, retarde ce qui compte maintenant, et chaque ligne en plus alourdit les modifications suivantes."
     },
     {
-      "id": "yagni-you-aren-t-gonna-need-it:51z0xu",
+      "id": "yagni-you-aren-t-gonna-need-it:1j7b5pc",
       "kind": "multiple-choice",
       "conceptSlug": "yagni-you-aren-t-gonna-need-it",
-      "prompt": "Que se passe-t-il si le besoin anticipé finit par arriver sous une autre forme ?",
+      "prompt": "On a codé une fonctionnalité par anticipation, et le besoin arrive finalement sous une autre forme. Que se passe-t-il ?",
       "choices": [
-        "Rien, le code anticipé reste simplement inutilisé",
         "Il faut défaire ce qu'on avait anticipé avant de le refaire",
-        "Le code anticipé s'adapte de lui-même",
-        "On gagne du temps, car une partie est déjà écrite"
+        "Rien, le code anticipé reste simplement inutilisé",
+        "On gagne du temps, car une partie est déjà écrite",
+        "Le code anticipé s'adapte de lui-même"
       ],
-      "answerIndex": 1,
+      "answerIndex": 0,
       "explanation": "C'est le coût de réparation : l'anticipation devient un obstacle à défaire."
     },
     {
@@ -1668,17 +1668,17 @@
       "explanation": "C'est le coût de portage : plus il y a de code, plus chaque changement est long à faire."
     },
     {
-      "id": "yagni-you-aren-t-gonna-need-it:119r2rs",
+      "id": "yagni-you-aren-t-gonna-need-it:1sz5p55",
       "kind": "multiple-choice",
       "conceptSlug": "yagni-you-aren-t-gonna-need-it",
-      "prompt": "Quel est le « coût de retard » d'une fonctionnalité anticipée ?",
+      "prompt": "Selon YAGNI, quel est le « coût de retard » d'une fonctionnalité codée par anticipation ?",
       "choices": [
+        "Les tests prennent plus de temps à tourner",
         "La valeur réellement attendue arrive plus tard",
         "Le code met plus de temps à s'exécuter",
-        "Les tests prennent plus de temps à tourner",
         "Le déploiement doit être planifié plus tôt"
       ],
-      "answerIndex": 0,
+      "answerIndex": 1,
       "explanation": "Le temps passé sur une fonctionnalité spéculative n'est pas passé sur ce qui compte maintenant."
     },
     {
@@ -1688,8 +1688,8 @@
       "prompt": "Que protège vraiment le principe DRY ?",
       "choices": [
         "La connaissance : une règle métier, un format ou un schéma ne doit avoir qu'une représentation",
-        "Les performances : un calcul ne doit jamais être fait deux fois",
         "Les lignes de code : deux lignes identiques doivent toujours être fusionnées",
+        "Les performances : un calcul ne doit jamais être fait deux fois",
         "Les tests : chaque comportement ne doit être testé qu'une fois"
       ],
       "answerIndex": 0,
@@ -1704,17 +1704,17 @@
       "explanation": "S'ils changeront pour des raisons différentes, c'est une duplication accidentelle : les fusionner crée un couplage inutile."
     },
     {
-      "id": "dry-don-t-repeat-yourself:s0a3an",
+      "id": "dry-don-t-repeat-yourself:1c9c4rc",
       "kind": "multiple-choice",
       "conceptSlug": "dry-don-t-repeat-yourself",
-      "prompt": "Que dit la règle de trois ?",
+      "prompt": "Que dit la règle de trois, qui accompagne le principe DRY ?",
       "choices": [
-        "On tolère deux copies et on extrait à la troisième, quand le point commun est clair",
-        "Il faut trois tests par comportement",
         "On extrait dès la deuxième copie",
-        "Une fonction ne doit pas dépasser trois paramètres"
+        "Il faut trois tests par comportement",
+        "Une fonction ne doit pas dépasser trois paramètres",
+        "On tolère deux copies et on extrait à la troisième, quand le point commun est clair"
       ],
-      "answerIndex": 0,
+      "answerIndex": 3,
       "explanation": "Attendre la troisième copie évite d'extraire une mauvaise abstraction trop tôt."
     },
     {
@@ -1731,18 +1731,19 @@
       "conceptSlug": "dry-don-t-repeat-yourself",
       "prompt": "Quand deux codes identiques ont-ils intérêt à rester séparés ?",
       "choices": [
-        "Jamais, il faut toujours les fusionner",
+        "Quand ils changeront pour des raisons différentes",
         "Quand ils sont dans le même fichier",
         "Quand ils font moins de dix lignes",
-        "Quand ils changeront pour des raisons différentes"
+        "Jamais, il faut toujours les fusionner"
       ],
-      "answerIndex": 3,
+      "answerIndex": 0,
       "explanation": "La ressemblance est alors accidentelle : les fusionner obligerait à les faire évoluer ensemble."
     },
     {
       "id": "bdd-behavior-driven-development:1v8hnrk",
-      "kind": "multiple-choice",
       "conceptSlug": "bdd-behavior-driven-development",
+      "explanation": "Les exemples sont écrits avec le vocabulaire du métier, puis automatisés.",
+      "kind": "multiple-choice",
       "prompt": "Sous quelle forme le BDD décrit-il le comportement attendu ?",
       "choices": [
         "Des exemples Given / When / Then écrits avec le métier",
@@ -1750,13 +1751,13 @@
         "Des diagrammes UML de classes",
         "Des spécifications techniques détaillées"
       ],
-      "answerIndex": 0,
-      "explanation": "Les exemples sont écrits avec le vocabulaire du métier, puis automatisés."
+      "answerIndex": 0
     },
     {
       "id": "bdd-behavior-driven-development:1vd9mhx",
-      "kind": "multiple-choice",
       "conceptSlug": "bdd-behavior-driven-development",
+      "explanation": "Les trois points de vue, métier, développement et test, cherchent ensemble les règles et les exemples.",
+      "kind": "multiple-choice",
       "prompt": "Qui sont les « Three Amigos » d'un atelier BDD ?",
       "choices": [
         "Trois développeurs de niveaux différents",
@@ -1764,13 +1765,13 @@
         "Le développeur, l'architecte et le DBA",
         "Le PO, le développeur et le QA"
       ],
-      "answerIndex": 3,
-      "explanation": "Les trois points de vue, métier, développement et test, cherchent ensemble les règles et les exemples."
+      "answerIndex": 3
     },
     {
       "id": "bdd-behavior-driven-development:1s5ntri",
-      "kind": "multiple-choice",
       "conceptSlug": "bdd-behavior-driven-development",
+      "explanation": "Gherkin structure les scénarios en Given / When / Then, avec le vocabulaire du métier.",
+      "kind": "multiple-choice",
       "prompt": "Dans quel langage écrit-on les scénarios BDD ?",
       "choices": [
         "YAML",
@@ -1778,24 +1779,23 @@
         "Gherkin",
         "SQL"
       ],
-      "answerIndex": 2,
-      "explanation": "Gherkin structure les scénarios en Given / When / Then, avec le vocabulaire du métier."
+      "answerIndex": 2
     },
     {
       "id": "bdd-behavior-driven-development:hcj469",
-      "kind": "true-false",
       "conceptSlug": "bdd-behavior-driven-development",
+      "explanation": "Chaque étape du scénario est reliée à du code de test (Cucumber, SpecFlow, Behave…), puis on développe en TDD.",
+      "kind": "true-false",
       "statement": "En BDD, on développe le code en TDD jusqu'à ce que le scénario automatisé passe.",
-      "answer": true,
-      "explanation": "Chaque étape du scénario est reliée à du code de test (Cucumber, SpecFlow, Behave…), puis on développe en TDD."
+      "answer": true
     },
     {
       "id": "bdd-behavior-driven-development:3txvmk",
-      "kind": "true-false",
       "conceptSlug": "bdd-behavior-driven-development",
+      "explanation": "Le BDD commence par un travail de découverte à plusieurs, avec le métier, pour trouver les règles et les exemples.",
+      "kind": "true-false",
       "statement": "Le BDD est d'abord une pratique de test que le développeur applique seul.",
-      "answer": false,
-      "explanation": "Le BDD commence par un travail de découverte à plusieurs, avec le métier, pour trouver les règles et les exemples."
+      "answer": false
     },
     {
       "id": "ddd-domain-driven-design:hxwlz2",
@@ -1803,23 +1803,23 @@
       "conceptSlug": "ddd-domain-driven-design",
       "prompt": "Quelle partie du DDD est considérée comme la plus importante ?",
       "choices": [
-        "Le découpage en microservices",
+        "Le choix de la base de données",
         "La partie tactique : entités, value objects, repositories",
-        "La partie stratégique : langage commun, Bounded Contexts, Context Map",
-        "Le choix de la base de données"
+        "Le découpage en microservices",
+        "La partie stratégique : langage commun, Bounded Contexts, Context Map"
       ],
-      "answerIndex": 2,
+      "answerIndex": 3,
       "explanation": "Le DDD stratégique dit où sont les frontières et où investir. Les briques tactiques viennent ensuite."
     },
     {
-      "id": "ddd-domain-driven-design:g74a9i",
+      "id": "ddd-domain-driven-design:rvc9zj",
       "kind": "multiple-choice",
       "conceptSlug": "ddd-domain-driven-design",
-      "prompt": "Qu'est-ce qui caractérise un Value Object ?",
+      "prompt": "En DDD, qu'est-ce qui caractérise un Value Object ?",
       "choices": [
         "Il a une identité qui persiste dans le temps",
-        "Il regroupe plusieurs entités autour d'une racine",
         "Il gère l'accès à la base de données",
+        "Il regroupe plusieurs entités autour d'une racine",
         "Il est immuable et défini par ses valeurs"
       ],
       "answerIndex": 3,
@@ -1840,21 +1840,21 @@
       "prompt": "Qu'est-ce qu'un Aggregate en DDD ?",
       "choices": [
         "Une frontière de cohérence, avec une racine par laquelle on passe",
-        "Un service qui regroupe plusieurs Bounded Contexts",
         "Une requête qui calcule des totaux",
+        "Un service qui regroupe plusieurs Bounded Contexts",
         "Une table de base de données dénormalisée"
       ],
       "answerIndex": 0,
       "explanation": "L'Aggregate garantit ses règles de cohérence, et on n'y accède que par sa racine."
     },
     {
-      "id": "ddd-domain-driven-design:1fa8pxj",
+      "id": "ddd-domain-driven-design:zvcxvy",
       "kind": "multiple-choice",
       "conceptSlug": "ddd-domain-driven-design",
-      "prompt": "À quoi sert la distinction entre core, supporting et generic domain ?",
+      "prompt": "En DDD, à quoi sert la distinction entre core, supporting et generic domain ?",
       "choices": [
-        "À définir l'ordre de déploiement des services",
         "À choisir le langage de programmation de chaque service",
+        "À définir l'ordre de déploiement des services",
         "À répartir les données entre plusieurs bases",
         "À savoir où investir l'effort de modélisation"
       ],
@@ -1876,9 +1876,9 @@
       "prompt": "Dans quel ordre se déroule un cycle de TDD ?",
       "choices": [
         "Red, Green, Refactor",
-        "Refactor, Red, Green",
         "Red, Refactor, Green",
-        "Green, Red, Refactor"
+        "Green, Red, Refactor",
+        "Refactor, Red, Green"
       ],
       "answerIndex": 0,
       "explanation": "On écrit un test qui échoue, on le fait passer, puis on améliore le code sans changer le comportement."
@@ -1889,19 +1889,19 @@
       "conceptSlug": "tdd-test-driven-development",
       "prompt": "Que fait-on pendant l'étape Green du TDD ?",
       "choices": [
+        "On écrit le code définitif, propre et optimisé",
         "On ajoute d'autres tests pour couvrir les cas limites",
         "On écrit le code le plus simple qui fait passer le test, même naïf",
-        "On écrit le code définitif, propre et optimisé",
         "On restructure le code existant"
       ],
-      "answerIndex": 1,
+      "answerIndex": 2,
       "explanation": "Le but est seulement de passer au vert. L'amélioration du code vient à l'étape Refactor."
     },
     {
-      "id": "tdd-test-driven-development:1stiksk",
+      "id": "tdd-test-driven-development:13xwjw9",
       "kind": "true-false",
       "conceptSlug": "tdd-test-driven-development",
-      "statement": "Pendant l'étape Refactor, on peut changer le comportement du code tant que les tests passent ensuite.",
+      "statement": "En TDD, pendant l'étape Refactor, on peut changer le comportement du code tant que les tests passent ensuite.",
       "answer": false,
       "explanation": "On améliore le code et les tests sans changer le comportement. Les tests restent verts tout du long."
     },
@@ -1919,12 +1919,12 @@
       "conceptSlug": "tdd-test-driven-development",
       "prompt": "Quelle pratique complète le TDD en décrivant le comportement attendu avec le métier, sous forme de scénarios ?",
       "choices": [
-        "L'Event Sourcing",
+        "Le CQRS",
         "Le DDD",
-        "Le BDD",
-        "Le CQRS"
+        "L'Event Sourcing",
+        "Le BDD"
       ],
-      "answerIndex": 2,
+      "answerIndex": 3,
       "explanation": "Le BDD part d'exemples écrits avec le métier, puis on développe en TDD jusqu'à ce que le scénario passe."
     }
   ]
