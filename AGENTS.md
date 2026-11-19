@@ -17,12 +17,27 @@ The plan and decisions live in Notion, on the page "Perso › Projets › softwa
   "Passages brief".
 - Domain logic (parsing, question generation) is pure TypeScript, tested with Vitest without Notion.
 
+## Layout
+
+- `shared/`: types used by both the build scripts and the site (`concept.type.ts`).
+- `scripts/sync-notion.ts`: the only code that talks to Notion. It reads the "✅ Rédigé" sheets,
+  parses them and writes `generated/concepts.json` (git-ignored).
+- `scripts/notion/`: pure functions. The zod schemas in `parse-concepts.ts` are the allowlist of
+  published fields: a field they don't declare never reaches the output. `find-notion-traces.ts`
+  fails the sync if an id, a Notion URL or a token slips through.
+- `tests/unit/`: Vitest tests, with fake Notion responses.
+- Scripts run on Node's type stripping (no build step), so they use `.ts` import extensions and
+  erasable syntax only (no enums, no parameter properties).
+
 ## Commands
 
 - `npm run dev`: dev server on http://localhost:3000.
 - `npm run format`: Prettier. Formatting is Prettier's job; ESLint only reports code issues.
 - `npm run check`: format check, lint, type-check and unit tests.
 - `npm run generate`: static build into `.output/public`.
+- `npm run sync`: exports the Concepts sheets to `generated/concepts.json`. Needs `NOTION_TOKEN` and
+  `NOTION_CONCEPTS_DATA_SOURCE_ID`, from `.env` locally (see `.env.example`) or CI secrets. Keep the
+  data source id secret too: GitHub masks secret values in the logs, including in Notion errors.
 
 Before saying a change is done, run `npm run check` and `npm run generate`.
 

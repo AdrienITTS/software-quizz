@@ -17,5 +17,10 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: true,
+    nodeTsConfig: {
+      include: ['../scripts/**/*', '../tests/**/*'],
+      // Node runs the scripts by stripping types, which only supports erasable syntax.
+      compilerOptions: { erasableSyntaxOnly: true },
+    },
   },
 })

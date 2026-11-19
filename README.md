@@ -22,6 +22,16 @@ npm run check
 
 This runs the Prettier check, ESLint, the type-check and the Vitest unit tests.
 
+## Sync the concepts
+
+```bash
+cp .env.example .env   # then fill in the two values
+npm run sync
+```
+
+This writes `generated/concepts.json`. The token comes from a read-only Notion integration that
+can only see the Concepts database.
+
 ## Build
 
 ```bash

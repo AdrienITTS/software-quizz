@@ -25,3 +25,6 @@ logs
 
 # Tests
 coverage
+
+# Notion export and generated questions (build artifacts)
+generated

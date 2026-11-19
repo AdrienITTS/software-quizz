@@ -16,12 +16,14 @@
     "format:check": "prettier --check .",
     "typecheck": "nuxt typecheck",
     "test": "vitest run",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test"
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
+    "sync": "node --env-file-if-exists=.env scripts/sync-notion.ts"
   },
   "dependencies": {
     "nuxt": "^4.6.4"
   },
   "devDependencies": {
+    "@notionhq/client": "^5.31.1",
     "@nuxt/eslint": "^1.17.0",
     "@types/node": "^24.19.2",
     "eslint": "^10.15.0",
@@ -29,7 +31,8 @@
     "prettier": "^3.10.1",
     "typescript": "~6.0.0",
     "vitest": "^5.1.1",
-    "vue-tsc": "^3.3.14"
+    "vue-tsc": "^3.3.14",
+    "zod": "^4.6.7"
   },
   "allowScripts": {
     "esbuild@0.28.2": true,
