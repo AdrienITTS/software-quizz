@@ -1,5 +1,5 @@
 // @ts-check
-import skipFormatting from 'eslint-config-prettier/flat'
 import withNuxt from './.nuxt/eslint.config.mjs'
 
-export default withNuxt(skipFormatting)
+// Formatting is Prettier's job: @nuxt/eslint leaves its stylistic rules off by default.
+export default withNuxt()

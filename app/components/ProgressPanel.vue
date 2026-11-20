@@ -36,7 +36,7 @@ function confirmReset() {
     <NuxtLink
       v-if="stats.due > 0"
       :to="{ path: '/quiz', query: { mode: 'revision' } }"
-      class="inline-block rounded-lg bg-accent px-5 py-2.5 font-semibold text-white hover:opacity-90 dark:text-bg"
+      class="btn-primary inline-block"
     >
       Réviser
     </NuxtLink>

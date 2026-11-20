@@ -1,15 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { frenchTypography } from '../../scripts/questions/french-typography.ts'
 
+const NBSP = '\u00a0'
+
 describe('frenchTypography', () => {
   it.each([
-    ['Quel principe ?', 'Quel principe ?'],
-    ['Vrai !', 'Vrai !'],
-    [
-      'Deux cas : lecture et écriture ; rien d’autre.',
-      'Deux cas : lecture et écriture ; rien d’autre.',
-    ],
-    ['Le « design simple » de Beck', 'Le « design simple » de Beck'],
+    ['Quel principe ?', `Quel principe${NBSP}?`],
+    ['Vrai !', `Vrai${NBSP}!`],
+    ['Deux cas : lecture ; écriture.', `Deux cas${NBSP}: lecture${NBSP}; écriture.`],
+    ['Le « design simple » de Beck', `Le «${NBSP}design simple${NBSP}» de Beck`],
   ])('uses a no-break space in "%s"', (text, expected) => {
     expect(frenchTypography(text)).toBe(expected)
   })

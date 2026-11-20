@@ -1,32 +1,32 @@
 import { z } from 'zod'
 import type { Concept } from '../../shared/concept.type.ts'
 import type { Question, QuestionBank } from '../../shared/question.type.ts'
-import { hashText, seededRandom, shuffle } from '../../shared/random.ts'
 import { frenchTypography } from './french-typography.ts'
 
-export const MIN_QUESTIONS_PER_CONCEPT = 3
-export const MAX_QUESTIONS_PER_CONCEPT = 8
+const MIN_QUESTIONS_PER_CONCEPT = 3
+const MAX_QUESTIONS_PER_CONCEPT = 8
 
 const text = z.string().trim().min(1)
 
-const draftQuestionSchema = z.discriminatedUnion('kind', [
-  z.object({
-    kind: z.literal('multiple-choice'),
-    prompt: text,
-    choices: z
-      .array(text)
-      .length(4)
-      .refine((choices) => new Set(choices).size === choices.length, 'Choices must differ'),
-    answerIndex: z.number().int().min(0).max(3),
-    explanation: text,
-  }),
-  z.object({
-    kind: z.literal('true-false'),
-    statement: text,
-    answer: z.boolean(),
-    explanation: text,
-  }),
-])
+const multipleChoiceSchema = z.object({
+  kind: z.literal('multiple-choice'),
+  prompt: text,
+  choices: z
+    .array(text)
+    .length(4)
+    .refine((choices) => new Set(choices).size === choices.length, 'Choices must differ'),
+  answerIndex: z.number().int().min(0).max(3),
+  explanation: text,
+})
+
+const trueFalseSchema = z.object({
+  kind: z.literal('true-false'),
+  statement: text,
+  answer: z.boolean(),
+  explanation: text,
+})
+
+const draftQuestionSchema = z.discriminatedUnion('kind', [multipleChoiceSchema, trueFalseSchema])
 
 // Questions written by the model, keyed by concept slug: untrusted until parsed.
 const draftsSchema = z.record(
@@ -34,10 +34,21 @@ const draftsSchema = z.record(
   z.array(draftQuestionSchema).min(MIN_QUESTIONS_PER_CONCEPT).max(MAX_QUESTIONS_PER_CONCEPT),
 )
 
-type DraftQuestion = z.infer<typeof draftQuestionSchema>
-export type Drafts = Record<string, DraftQuestion[]>
+// The committed bank: the same questions, plus the fields the apply step adds.
+const identity = { id: z.string(), conceptSlug: z.string() }
+export const questionBankSchema = z.object({
+  sourceHashes: z.record(z.string(), z.string()),
+  questions: z.array(
+    z.discriminatedUnion('kind', [
+      multipleChoiceSchema.extend(identity),
+      trueFalseSchema.extend(identity),
+    ]),
+  ),
+}) satisfies z.ZodType<QuestionBank>
 
-export type QuestionPlan = { toGenerate: string[]; toRemove: string[] }
+type DraftQuestion = z.infer<typeof draftQuestionSchema>
+type Drafts = Record<string, DraftQuestion[]>
+type QuestionPlan = { toGenerate: string[]; toRemove: string[] }
 
 export function emptyBank(): QuestionBank {
   return { sourceHashes: {}, questions: [] }
@@ -45,7 +56,7 @@ export function emptyBank(): QuestionBank {
 
 /** Changes whenever a published field of the concept changes. */
 export function conceptHash(concept: Concept): string {
-  return hashText(JSON.stringify(concept)).toString(36)
+  return hashText(JSON.stringify(concept))
 }
 
 /** Concepts that need questions (new or changed since their questions were written). */
@@ -108,25 +119,30 @@ function toQuestion(conceptSlug: string, draft: DraftQuestion): Question {
   }
 
   const prompt = frenchTypography(draft.prompt)
-  const id = questionId(conceptSlug, prompt)
-  const choices = draft.choices.map(frenchTypography)
-  const rightChoice = choices[draft.answerIndex] ?? ''
-  // Models tend to put the right answer first: shuffle, seeded by the id to stay stable.
-  const shuffled = shuffle(choices, seededRandom(id))
   return {
-    id,
+    id: questionId(conceptSlug, prompt),
     kind: draft.kind,
     conceptSlug,
     prompt,
-    choices: shuffled,
-    answerIndex: shuffled.indexOf(rightChoice),
+    choices: draft.choices.map(frenchTypography),
+    answerIndex: draft.answerIndex,
     explanation,
   }
 }
 
 /** Depends only on the concept and the wording, so editing other questions keeps this id. */
 function questionId(conceptSlug: string, wording: string): string {
-  return `${conceptSlug}:${hashText(wording).toString(36)}`
+  return `${conceptSlug}:${hashText(wording)}`
+}
+
+/** FNV-1a, in base 36: a short, stable fingerprint. Not for security. */
+function hashText(text: string): string {
+  let hash = 0x811c9dc5
+  for (let index = 0; index < text.length; index++) {
+    hash ^= text.charCodeAt(index)
+    hash = Math.imul(hash, 0x01000193)
+  }
+  return (hash >>> 0).toString(36)
 }
 
 function assertUniqueIds(questions: Question[]): void {

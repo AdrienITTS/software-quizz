@@ -39,12 +39,7 @@ export default defineNuxtConfig({
     prerender: { routes: ['/', '/quiz'] },
   },
 
-  eslint: {
-    config: { stylistic: false },
-  },
-
   typescript: {
-    strict: true,
     nodeTsConfig: {
       include: ['../scripts/**/*', '../tests/**/*'],
       compilerOptions: {

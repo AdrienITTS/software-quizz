@@ -76,12 +76,7 @@ function optionClass(index: number): string {
           <span class="font-semibold text-navy">{{ item.concept.name }}</span>
           <span class="text-muted">&nbsp;: {{ item.concept.summary }}</span>
         </p>
-        <button
-          ref="nextButton"
-          type="button"
-          class="rounded-lg bg-accent px-5 py-2.5 font-semibold text-white hover:opacity-90 dark:text-bg"
-          @click="emit('next')"
-        >
+        <button ref="nextButton" type="button" class="btn-primary" @click="emit('next')">
           {{ isLast ? 'Voir le score' : 'Question suivante' }}
         </button>
       </div>

@@ -16,12 +16,7 @@ const tags = quizTags(concepts)
         craft, le back et le reste. Une partie compte {{ QUIZ_LENGTH }} questions, avec la
         correction après chaque réponse.
       </p>
-      <NuxtLink
-        to="/quiz"
-        class="inline-block rounded-lg bg-accent px-5 py-3 font-semibold text-white hover:opacity-90 dark:text-bg"
-      >
-        Lancer un quiz mélangé
-      </NuxtLink>
+      <NuxtLink to="/quiz" class="btn-primary inline-block"> Lancer un quiz mélangé </NuxtLink>
     </section>
 
     <ProgressPanel />

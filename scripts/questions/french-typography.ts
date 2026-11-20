@@ -4,7 +4,7 @@
  */
 export function frenchTypography(text: string): string {
   return text
-    .replace(/ ([?!:;])/g, ' $1')
-    .replace(/« /g, '« ')
-    .replace(/ »/g, ' »')
+    .replace(/ ([?!:;])/g, '\u00a0$1')
+    .replace(/« /g, '«\u00a0')
+    .replace(/ »/g, '\u00a0»')
 }

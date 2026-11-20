@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Concept } from '../../shared/concept.type.ts'
 import type { Question } from '../../shared/question.type.ts'
-import { seededRandom } from '../../shared/random.ts'
 import { buildQuiz, buildReviewQuiz, QUIZ_LENGTH, quizTags } from '../../app/utils/quiz.ts'
 
 function concept(slug: string, tags: string[] = ['Craftsmanship']): Concept {
@@ -27,7 +26,11 @@ function choiceQuestion(conceptSlug: string, index = 0): Question {
   }
 }
 
-const random = () => seededRandom('quiz-test')
+/** A predictable stand-in for Math.random: 0, 0.618…, 0.236…, and so on. */
+function random() {
+  let call = 0
+  return () => (call++ * 0.618) % 1
+}
 
 describe('buildQuiz', () => {
   const concepts = Array.from({ length: 12 }, (_, index) =>
@@ -69,16 +72,22 @@ describe('quiz items', () => {
   const solid = concept('solid')
   const quizOf = (question: Question) => buildQuiz([question], [solid], {}, random())
 
-  it('shows a multiple-choice question as written, with its explanation', () => {
+  it('shows a multiple-choice question with its explanation', () => {
     const [item] = quizOf(choiceQuestion('solid'))
 
     expect(item).toMatchObject({
       prompt: 'Question 0 sur solid\u00a0?',
-      options: ['A', 'B', 'C', 'D'],
-      answerIndex: 2,
       explanation: 'Parce que C.',
     })
     expect(item?.quote).toBeUndefined()
+  })
+
+  it('shuffles the choices and keeps the right answer', () => {
+    const [item] = quizOf(choiceQuestion('solid'))
+
+    expect(item?.options).not.toEqual(['A', 'B', 'C', 'D'])
+    expect([...(item?.options ?? [])].sort()).toEqual(['A', 'B', 'C', 'D'])
+    expect(item?.options[item.answerIndex]).toBe('C')
   })
 
   it.each([
@@ -116,13 +125,13 @@ describe('buildReviewQuiz', () => {
   it('asks the due questions in the given order, up to a full quiz', () => {
     const dueIds = [...questions].reverse().map((question) => question.id)
 
-    const quiz = buildReviewQuiz(questions, concepts, dueIds)
+    const quiz = buildReviewQuiz(questions, concepts, dueIds, random())
 
     expect(quiz.map((item) => item.id)).toEqual(dueIds.slice(0, QUIZ_LENGTH))
   })
 
   it('skips the ids of questions that no longer exist', () => {
-    const quiz = buildReviewQuiz(questions, concepts, ['gone', 'c3:0'])
+    const quiz = buildReviewQuiz(questions, concepts, ['gone', 'c3:0'], random())
 
     expect(quiz.map((item) => item.id)).toEqual(['c3:0'])
   })

@@ -9,17 +9,12 @@ describe('committed data', () => {
     expect(findNotionTraces(await readFile(path, 'utf8'))).toEqual([])
   })
 
-  it('has questions only for existing concepts, with a valid answer', async () => {
+  // readBank parses the questions with the same rules as the drafts.
+  it('has well-formed questions, with unique ids, for existing concepts only', async () => {
     const slugs = new Set((await readConcepts()).map((concept) => concept.slug))
     const { questions } = await readBank()
 
-    for (const question of questions) {
-      expect(slugs).toContain(question.conceptSlug)
-      expect(question.explanation.trim()).not.toBe('')
-      if (question.kind === 'multiple-choice') {
-        expect(question.choices[question.answerIndex]).toBeDefined()
-      }
-    }
+    expect(questions.every((question) => slugs.has(question.conceptSlug))).toBe(true)
     expect(new Set(questions.map((question) => question.id)).size).toBe(questions.length)
   })
 })

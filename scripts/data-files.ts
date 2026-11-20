@@ -2,9 +2,10 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { z } from 'zod'
 import type { Concept } from '../shared/concept.type.ts'
 import type { QuestionBank } from '../shared/question.type.ts'
+import { questionBankSchema } from './questions/question-bank.ts'
 import { findNotionTraces } from './notion/find-notion-traces.ts'
 
-export const DATA_DIR = 'data'
+const DATA_DIR = 'data'
 export const CONCEPTS_FILE = `${DATA_DIR}/concepts.json`
 export const QUESTIONS_FILE = `${DATA_DIR}/questions.json`
 export const DRAFTS_DIR = `${DATA_DIR}/drafts`
@@ -20,35 +21,12 @@ const conceptsSchema = z.array(
   }),
 ) satisfies z.ZodType<Concept[]>
 
-const questionBase = { id: z.string(), conceptSlug: z.string(), explanation: z.string() }
-
-const bankSchema = z.object({
-  sourceHashes: z.record(z.string(), z.string()),
-  questions: z.array(
-    z.discriminatedUnion('kind', [
-      z.object({
-        ...questionBase,
-        kind: z.literal('multiple-choice'),
-        prompt: z.string(),
-        choices: z.array(z.string()),
-        answerIndex: z.number(),
-      }),
-      z.object({
-        ...questionBase,
-        kind: z.literal('true-false'),
-        statement: z.string(),
-        answer: z.boolean(),
-      }),
-    ]),
-  ),
-}) satisfies z.ZodType<QuestionBank>
-
 export async function readConcepts(): Promise<Concept[]> {
   return conceptsSchema.parse(await readJson(CONCEPTS_FILE))
 }
 
 export async function readBank(): Promise<QuestionBank> {
-  return bankSchema.parse(await readJson(QUESTIONS_FILE))
+  return questionBankSchema.parse(await readJson(QUESTIONS_FILE))
 }
 
 /** Writes a committed data file, refusing anything that could point back to Notion. */

@@ -22,6 +22,7 @@ function start() {
         questions,
         concepts,
         dueQuestionIds(currentProgress(), questionIds, new Date()),
+        Math.random,
       )
     : buildQuiz(questions, concepts, { tag: tag.value }, Math.random)
   results.value = []

@@ -101,20 +101,13 @@ describe('applyDrafts', () => {
     )
   })
 
-  it('keeps the right answer when it shuffles the choices', () => {
-    const drafts = parseDrafts({
-      solid: Array.from({ length: 8 }, (_, i) => choiceDraft(`Question ${i} ?`, `Bonne ${i}`)),
-    })
+  it('keeps the choices in the order they were written', () => {
+    const bank = applyDrafts(emptyBank(), [solid], parseDrafts({ solid: threeQuestions }))
 
-    const bank = applyDrafts(emptyBank(), [solid], drafts)
-
-    const positions = new Set<number>()
-    bank.questions.forEach((question, i) => {
-      if (question.kind !== 'multiple-choice') throw new Error('expected a multiple choice')
-      expect(question.choices[question.answerIndex]).toBe(`Bonne ${i}`)
-      positions.add(question.answerIndex)
+    expect(bank.questions[0]).toMatchObject({
+      choices: ['Bonne', 'Fausse 1', 'Fausse 2', 'Fausse 3'],
+      answerIndex: 0,
     })
-    expect(positions.size).toBeGreaterThan(1)
   })
 
   it('replaces the questions of a regenerated concept and keeps the others', () => {
@@ -153,7 +146,9 @@ describe('applyDrafts', () => {
   it('applies the French typography', () => {
     const bank = applyDrafts(emptyBank(), [solid], parseDrafts({ solid: threeQuestions }))
 
-    expect(bank.questions[0]?.kind === 'multiple-choice' && bank.questions[0].prompt).toBe('Q1 ?')
+    expect(bank.questions[0]?.kind === 'multiple-choice' && bank.questions[0].prompt).toBe(
+      'Q1\u00a0?',
+    )
   })
 
   it('rejects drafts for an unknown concept', () => {

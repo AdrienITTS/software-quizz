@@ -47,13 +47,7 @@ onMounted(() => heading.value?.focus())
     </ul>
 
     <div class="flex flex-wrap gap-3">
-      <button
-        type="button"
-        class="rounded-lg bg-accent px-5 py-2.5 font-semibold text-white hover:opacity-90 dark:text-bg"
-        @click="emit('replay')"
-      >
-        Rejouer
-      </button>
+      <button type="button" class="btn-primary" @click="emit('replay')">Rejouer</button>
       <NuxtLink
         to="/"
         class="rounded-lg border border-line bg-surface px-5 py-2.5 font-semibold text-navy hover:border-accent"

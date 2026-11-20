@@ -19,7 +19,7 @@ export type Progress = {
   sessions: QuizSession[]
 }
 
-export type ProgressStats = { seen: number; total: number; due: number }
+type ProgressStats = { seen: number; total: number; due: number }
 
 // Without short-term steps, intervals count in days: a missed question comes back tomorrow,
 // not ten minutes later, which suits a quiz better than flashcards drilled in one sitting.

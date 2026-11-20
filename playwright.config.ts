@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 
-// Runs against the static build. It needs generated/*.json: run the sync and questions first.
+// Runs against the static build, the same files the Docker image serves.
 export default defineConfig({
   testDir: 'tests/e2e',
   use: { baseURL: 'http://localhost:4173' },

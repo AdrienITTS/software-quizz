@@ -6,8 +6,8 @@ description: Write the quiz questions of software-quizz for the concepts that ar
 # Generate the quiz questions
 
 The questions are written by you, in this session, from `data/concepts.json`. Code does the
-rest: it finds what to (re)generate, validates your output, computes the ids, shuffles the
-choices and applies French typography. Never edit `data/questions.json` by hand.
+rest: it finds what to (re)generate, validates your output, computes the ids and applies
+French typography. Never edit `data/questions.json` by hand.
 
 ## Steps
 
@@ -50,7 +50,7 @@ choices and applies French typography. Never edit `data/questions.json` by hand.
 }
 ```
 
-Put the right answer anywhere: the apply step shuffles the choices.
+Put the right answer anywhere: the site shuffles the choices at each game.
 
 ## How many questions
 

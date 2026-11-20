@@ -29,15 +29,16 @@ The plan and decisions live in Notion, on the page "Perso › Projets › softwa
   fails the sync if an id, a Notion URL or a token slips through.
 - `data/questions.json`: the questions and, per concept, the hash of the content they were
   written from. `scripts/questions/question-bank.ts` (pure, unit-tested) plans which concepts are
-  new or changed, validates the drafts written by the model (zod, 3 to 8 questions per concept),
-  computes ids from the concept and the wording, shuffles the choices and applies French
-  typography. Only changed concepts are rewritten: a new id resets the visitor's progress on it.
+  new or changed, validates the drafts written by the model (zod, 3 to 8 questions per concept;
+  the same schema parses the committed bank), computes ids from the concept and the wording and
+  applies French typography. Only changed concepts are rewritten: a new id resets the visitor's
+  progress on it. Choices are stored as written; the site shuffles them at each game.
 - `scripts/plan-questions.ts`, `scripts/apply-questions.ts`: the I/O around it. `data/drafts/`
   is git-ignored scratch space for the skill. `scripts/data-files.ts` reads and writes `data/`,
   and refuses to write anything that contains a Notion trace.
 - `app/`: the quiz site. `app/data/quiz-data.ts` imports `data/*.json` at build time;
   `app/utils/quiz.ts` (pure, unit-tested) picks the questions of a quiz and turns every kind into
-  one shape (prompt, quote, options, explanation). The draw runs in the browser, on mount, so the pre-rendered
+  one shape (prompt, quote, options, explanation), shuffling the choices. The draw runs in the browser, on mount, so the pre-rendered
   pages are the same for everyone.
 - Progress: `app/utils/progress.ts` (pure, unit-tested) keeps one FSRS card per question id
   (`ts-fsrs`, short-term steps off, so intervals count in days; right = Good, wrong = Again) and
